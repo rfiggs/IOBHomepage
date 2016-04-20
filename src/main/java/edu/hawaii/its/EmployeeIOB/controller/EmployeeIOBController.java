@@ -12,22 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class EmployeeIOBController{
+public class EmployeeIOBController {
 	@RequestMapping(value = {"/", "/gate"}, method = RequestMethod.GET)
-    public String gate(Model model)
-    {
+    public String gate(Model model) {
         return "gate";
     }
 	
 	@RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home(Model model)
-    {
+    public String home(Model model) {
         return "home";
     }
 	
 	@RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response)
-    {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);

@@ -6,7 +6,6 @@
 Welcome In!
 <br/>
 <a href ="logout">Logout</a>
-
 </h2>
 </body>
 </html>

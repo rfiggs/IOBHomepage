@@ -7,12 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service("EmployeeIOBUserDetailsService")
-public class UserDetailsServiceImpl
-extends AbstractCasAssertionUserDetailsService
-{
+public class UserDetailsServiceImpl extends AbstractCasAssertionUserDetailsService {
     @Override
-    protected UserDetails loadUserDetails(Assertion assertion)
-    {
+    protected UserDetails loadUserDetails(Assertion assertion) {
         RoleHolder roleHolder = new RoleHolder();
         roleHolder.add(Role.UH);
         return new User(assertion.getPrincipal().getName(), "", roleHolder.getAuthorites());
