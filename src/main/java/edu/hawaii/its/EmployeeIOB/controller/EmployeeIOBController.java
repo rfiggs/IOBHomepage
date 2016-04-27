@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class EmployeeIOBController {
+
 	@RequestMapping(value = {"/", "/gate"}, method = RequestMethod.GET)
     public String gate(Model model) {
         return "gate";
