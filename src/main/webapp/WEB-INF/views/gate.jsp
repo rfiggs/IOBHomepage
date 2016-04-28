@@ -1,12 +1,16 @@
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<script src="../js/bootstrap.min.js"></script>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="<c:url value="/bootstrap.min.css"/>"/>
+<script src="<c:url value="/bootstrap.min.js"/>"></script>
 <html>
-<header>Employee In / Out Board</header>
-<body>
-<h2>
-Please login
-<br/>
-<button type="button" class="btn" href="/home">Login</button>
-</h2>
-</body>
+    <div>
+        <header>Employee In / Out Board</header>
+    </div>
+    <body>
+        <h2>
+            Please login
+        </h2>
+        <button class="btn btn-primary" href="home" >Login</button>
+
+    </body>
 </html>
