@@ -12,6 +12,7 @@ public class UserDetailsServiceImpl extends AbstractCasAssertionUserDetailsServi
     protected UserDetails loadUserDetails(Assertion assertion) {
         RoleHolder roleHolder = new RoleHolder();
         roleHolder.add(Role.UH);
+
         return new User(assertion.getPrincipal().getName(), "", roleHolder.getAuthorites());
     }
 
