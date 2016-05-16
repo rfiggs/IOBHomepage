@@ -11,7 +11,7 @@
    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-   <context:component-scan base-package="edu.hawaii.its.EmployeeIOB.controller" />
+   <context:component-scan base-package="edu.hawaii.its.EmployeeIOB.**" />
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
