@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl extends AbstractCasAssertionUserDetailsService {
     @Override
     protected UserDetails loadUserDetails(Assertion assertion) {
-        RoleHolder roleHolder = new RoleHolder();
-        roleHolder.add(Role.UH);
+        User user = UserBuilder.make(new UhAttributes(assertion.getPrincipal().getAttributes()));
 
-        return new User(assertion.getPrincipal().getName(), "", roleHolder.getAuthorites());
+        return user;
     }
 
 }

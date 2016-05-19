@@ -172,8 +172,14 @@
 		  <version>${jstl.version}</version>
 	  </dependency>
 
+	  <dependency>
+		  <groupId>mysql</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		  <version>6.0.2</version>
+	  </dependency>
 
-	<!-- Logging -->
+
+	  <!-- Logging -->
 
 	<dependency>
 		<groupId>org.slf4j</groupId>
@@ -206,6 +212,9 @@
         <artifactId>bootstrap</artifactId>
 	    <version>3.3.6</version>
     </dependency>
+
+
+
 
 
 	  <!-- Selenium -->

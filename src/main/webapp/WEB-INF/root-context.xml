@@ -20,7 +20,7 @@
  		<security:intercept-url pattern="/" access="permitAll"/>
  		<security:intercept-url pattern="/gate" access="permitAll" />
 		<!--<security:intercept-url pattern="/*" access="permitAll" />-->
- 		<security:intercept-url pattern="/*" access="hasRole('ROLE_UH')"/>
+ 		<security:intercept-url pattern="/*" access="hasRole('ROLE_EMPLOYEE')"/>
  		<security:custom-filter position ="CAS_FILTER" ref ="casFilter"/>
  	</security:http>
  
@@ -43,11 +43,12 @@
  		<property name= "ticketValidator">
  			<bean class ="${Validator}">
  				<constructor-arg index="0" value="${Base_Url}"/>
+				<property name="tolerance" value="180000"/>
  			</bean>
  		</property>
  		<property name="key" value="an_id_for_this_auth_provider_only"/>
  	</bean>
  
  	<bean id="EmployeeIOBUserDetailsService" class="edu.hawaii.its.EmployeeIOB.access.UserDetailsServiceImpl" />
- 
+
  </beans>
