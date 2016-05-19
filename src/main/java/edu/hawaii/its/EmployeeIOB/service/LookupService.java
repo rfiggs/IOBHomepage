@@ -14,7 +14,7 @@ import java.sql.*;
  * Created by bobbyfiggs on 5/18/16.
  */
 public final class LookupService {
-    public static boolean isEmployee(String uhnumber){
+    public static String getRole(String uhnumber){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
@@ -24,15 +24,12 @@ public final class LookupService {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        boolean result = false;
-        String sql = "SELECT * FROM EMPLOYEE "+
+        String result = "";
+        String sql = "SELECT EMPTYPE FROM EMPLOYEE "+
                 "WHERE EMPUHNUMBER = ?";
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String url = "jdbc:mysql://localhost:3306/iob20160420?autoReconnect=true&useSSL=false";
-        String user = "root";
-        String password = "root";
         DataSource mysqlDS = null;
 
         try {
@@ -46,7 +43,7 @@ public final class LookupService {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                result = true;
+                result = rs.getString("EMPTYPE");
             }
 
         } catch (SQLException e) {

@@ -12,8 +12,13 @@ public class UserBuilder {
         RoleHolder roleHolder = new RoleHolder();
         roleHolder.add(Role.ANONYMOUS);
         roleHolder.add(Role.UH);
-        if(LookupService.isEmployee(String.valueOf(uhnumber))){
+        String role = LookupService.getRole(String.valueOf(uhnumber));
+        if(role.equalsIgnoreCase("Student")){
             roleHolder.add(Role.EMPLOYEE);
+        }
+        else if(role.equalsIgnoreCase("Staff")){
+            roleHolder.add(Role.EMPLOYEE);
+            roleHolder.add(Role.MANAGER);
         }
         User user = new User(username,uhnumber,roleHolder.getAuthorites());
         user.setAttributes(attributes);

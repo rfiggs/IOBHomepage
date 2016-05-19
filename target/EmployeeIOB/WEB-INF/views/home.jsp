@@ -3,7 +3,7 @@
 <header>Employee In / Out Board</header>
 <body>
 <h2>
-Welcome In!
+Welcome ${name}!
 <br/>
 <a href ="logout">Logout</a>
 </h2>

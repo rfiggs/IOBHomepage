@@ -1,7 +1,7 @@
 package edu.hawaii.its.EmployeeIOB.access;
 
 public enum Role {
-    ANONYMOUS, UH, EMPLOYEE, ADMIN;
+    ANONYMOUS, UH, EMPLOYEE, MANAGER, ADMIN;
 
     public String longName() {
         return "ROLE_" + name();
