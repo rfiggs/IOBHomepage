@@ -1,7 +1,6 @@
 package edu.hawaii.its.EmployeeIOB.service;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
@@ -15,15 +14,6 @@ import java.sql.*;
  */
 public final class LookupService {
     public static String getRole(String uhnumber){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         String result = "";
         String sql = "SELECT EMPTYPE FROM EMPLOYEE "+
                 "WHERE EMPUHNUMBER = ?";
@@ -33,11 +23,8 @@ public final class LookupService {
         DataSource mysqlDS = null;
 
         try {
-
             mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
-
             con = mysqlDS.getConnection();
-
             ps = con.prepareStatement(sql);
             ps.setString(1,uhnumber);
             rs = ps.executeQuery();
@@ -62,8 +49,7 @@ public final class LookupService {
                     con.close();
                 }
 
-
-            } catch (SQLException e) {
+            } catch (SQLException e){
 
             }
         }

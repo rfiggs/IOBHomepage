@@ -26,7 +26,7 @@
          -->
 
     <Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
-              maxTotal="-1" maxIdle="30" maxWaitMillis="60000"
+              maxTotal="10" maxIdle="30" maxWaitMillis="30000"
               username="root" password="root" driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/iob20160420?autoReconnect=true&amp;useSSL=false"/>
 

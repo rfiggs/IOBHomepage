@@ -18,7 +18,8 @@
  	
  	<security:http entry-point-ref ="casEntryPoint" use-expressions ="true">
  		<security:intercept-url pattern="/" access="permitAll"/>
- 		<security:intercept-url pattern="/gate" access="permitAll" />
+ 		<security:intercept-url pattern="/landing" access="permitAll" />
+		<security:intercept-url pattern="/logout" access = "permitAll"/>
 		<!--<security:intercept-url pattern="/*" access="permitAll" />-->
  		<security:intercept-url pattern="/*" access="hasRole('ROLE_EMPLOYEE')"/>
  		<security:custom-filter position ="CAS_FILTER" ref ="casFilter"/>

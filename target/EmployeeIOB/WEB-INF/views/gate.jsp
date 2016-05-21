@@ -16,3 +16,7 @@
     </body>
     </div>
 </html>
+
+
+
+href="<c:url value="/resources/
