@@ -112,7 +112,7 @@
 
                  <!-- Modal Footer -->
                   <div class ="modal-footer">
-                    <input type="submit" value="Submit" class="btn btn-primary">
+                    <input type="submit" value="Submit" id="submit" class="btn btn-primary">
                   </div>
                   </form>
              </div>
@@ -134,7 +134,7 @@
   		<a href="#" class="btn btn-topnav">Month</a>
   	</div>
   <div class="titlefeed">4 People are out today</div>
-  <div class="sidebar"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-addleft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
+  <div class="sidebar"><button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
 
   <div class="datecontain">
   	<time datetime="2016-09-20" class="icon">
@@ -142,8 +142,9 @@
   		<strong>March</strong>
   		<span>20</span>
 	</time>
-    <h3 id="logout"><a href="logout">Logout</a></h3>
+    <h3 ><a id="logout" href="logout">Logout</a></h3>
     </div>
+
     
   </div>
   <div class="content" id="content-outline">
@@ -198,8 +199,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="<c:url value="resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="resources/js/docs.min.js"/>"></script>
+    <script src="<c:url value="resources/js/validate.js"/>"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 

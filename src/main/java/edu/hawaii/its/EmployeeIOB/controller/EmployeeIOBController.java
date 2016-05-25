@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.hawaii.its.EmployeeIOB.access.User;
+import edu.hawaii.its.EmployeeIOB.service.LookupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -49,13 +47,21 @@ public class EmployeeIOBController {
                             @RequestParam String startTime,
                             @RequestParam String endTime,
                             @RequestParam String notes) {
+        String number = LookupService.getUhNumber(username);
+        ModelAndView mav;
+        if(number.equals("")){
+             mav = new ModelAndView("add","result","not in employee table");
 
-        Map<String,String> model = new HashMap();
-        model.put("username",username);
-        model.put("startTime",startTime);
-        model.put("endTime",endTime);
-        model.put("notes",notes);
-        ModelAndView mav = new ModelAndView("add", model);
+        }
+        else if(LookupService.validateAdd(number,startTime,endTime)) {
+            LookupService.addAbsence(number,startTime,endTime,notes);
+             mav = new ModelAndView("add", "result","Success!");
+
+        }
+        else{
+             mav = new ModelAndView("add", "result","Invalid date range");
+
+        }
         return mav;
     }
 }
