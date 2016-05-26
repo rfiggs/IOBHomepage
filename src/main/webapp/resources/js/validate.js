@@ -3,7 +3,12 @@ var app = angular.module('EmployeeIOB',[]);
 
 app.controller('formctrl', function($scope) {
     $scope.submit = function() {
-        $scope.errorMessage = "submited";
+    if(($scope.username != null) && ($scope.startTime!=null) && ($scope.endTime != null)){
+       console.log($scope.username);
+       console.log($scope.startTime);
+       console.log($scope.endTime);
+       console.log($scope.notes);
+       }
     };
 
 });
@@ -11,10 +16,6 @@ app.controller('ctrl', function($scope) {
 
 
 });
-function valid(scope){
-    console.log(scope.username);
-    return (scope.username.$valid && scope.startTime.$valid && scope.endTime.$valid);
-}
 
 function add(username,start,end,notes){
     console.log(username);

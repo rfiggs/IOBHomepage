@@ -64,7 +64,7 @@
          <div class="modal-dialog">
              <div class="modal-content">
 
-                 <form ng-controller ="formctrl" action="add" method = "POST" >
+                 <form ng-controller ="formctrl" >
 
                  <sec:csrfInput />
                  <!-- Modal Header -->
@@ -115,7 +115,7 @@
 
                  <!-- Modal Footer -->
                   <div class ="modal-footer">
-                    <input type="submit" value="Submit" id="submit" class="btn btn-primary" ng-click = "submit()">
+                    <input type="submit" value="Submit" id="submit" class="btn btn-primary" ng-click= "submit()">
                   </div>
                   </form>
              </div>
