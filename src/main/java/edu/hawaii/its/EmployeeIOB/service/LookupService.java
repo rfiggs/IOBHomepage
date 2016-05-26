@@ -157,30 +157,33 @@ public final class LookupService {
         PreparedStatement ps = null;
         ResultSet rs = null;
         DataSource mysqlDS = null;
+        if(startDate.after(endDate)){
+            result = false;
+        }else {
+            try {
+                String sql = "select absentdate.absdate from absentdate right join absent on " +
+                        "(absent.empid = ? and absent.absid = absentdate.absid) " +
+                        "where absentdate.absdate >= ? and absentdate.absdate <= ?";
 
-        try{
-            String sql = "select absentdate.absdate from absentdate right join absent on " +
-                    "(absent.empid = ? and absent.absid = absentdate.absid) " +
-                    "where absentdate.absdate >= ? and absentdate.absdate <= ?";
+                mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
+                con = mysqlDS.getConnection();
+                ps = con.prepareStatement(sql);
+                ps.setString(1, empid);
+                ps.setDate(2, new java.sql.Date(startDate.getTime()));
+                ps.setDate(3, new java.sql.Date(endDate.getTime()));
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = false;
+                }
 
-            mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
-            con = mysqlDS.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1,empid);
-            ps.setDate(2,new java.sql.Date(startDate.getTime()));
-            ps.setDate(3,new java.sql.Date(endDate.getTime()));
-            rs = ps.executeQuery();
-            if(rs.next()){
+
+            } catch (NamingException e) {
                 result = false;
+                e.printStackTrace();
+            } catch (SQLException e) {
+                result = false;
+                e.printStackTrace();
             }
-
-
-        } catch (NamingException e) {
-            result = false;
-            e.printStackTrace();
-        } catch (SQLException e) {
-            result = false;
-            e.printStackTrace();
         }
 
         return result;
@@ -188,16 +191,15 @@ public final class LookupService {
 
 
     public static String addAbsence(String uhNumber,String start, String end, String notes){
-        //get all dates being added
+
         String result = "";
-        ArrayList<Date> dates = new ArrayList<Date>();
+        ArrayList<Date> dates = getDateRange(start,end);
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         DataSource mysqlDS = null;
         try {
-            System.out.println("In add absence "+start+" "+end );
-            dates = getDateRange(start,end);
+
             mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
             con = mysqlDS.getConnection();
 
@@ -273,19 +275,20 @@ public final class LookupService {
     }
 
     private static ArrayList<Date> getDateRange(String start, String end){
-        System.out.println("in get date Range " +start +" "+end);
+
         ArrayList<Date> dates = new ArrayList<Date>();
         Date startDate = toDate(start);
         Date endDate = toDate(end);
-        System.out.println(startDate +" "+endDate);
-        Date it = startDate;
-        do{
-            dates.add(it);
-            Calendar c = Calendar.getInstance();
-            c.setTime(it);
-            c.add(Calendar.DATE, 1);
-            it = c.getTime();
-        }while(!it.after(endDate));
+      //  if(!startDate.after(endDate)) {
+            Date it = startDate;
+            do {
+                dates.add(it);
+                Calendar c = Calendar.getInstance();
+                c.setTime(it);
+                c.add(Calendar.DATE, 1);
+                it = c.getTime();
+            } while (!it.after(endDate));
+    //    }
 
 
         return dates;

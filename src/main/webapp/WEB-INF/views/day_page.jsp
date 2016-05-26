@@ -57,13 +57,15 @@
       </div>
     </nav>
     end mobile nav -->
-  <body role="document">
+  <body role="document" ng-app="EmployeeIOB" ng-controller= "ctrl">
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
           aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
-                 <form action="add" method="POST">
+
+                 <form ng-controller ="formctrl" action="add" method = "POST" >
+
                  <sec:csrfInput />
                  <!-- Modal Header -->
                  <div class="modal-header">
@@ -75,6 +77,7 @@
                      <h4 class="modal-title" id="modalTitle">
                          Add Absence
                      </h4>
+                     <p ng-bind="errorMessage"></p>
                  </div>
 
                  <!-- Modal Body -->
@@ -83,7 +86,7 @@
                         <!-- Username -->
                          <div class="form-group">
                             <label for="username">Enter Username</label>
-                            <input class ="form-control" name="username" type="text" id="username" required>
+                            <input class ="form-control" name="username" type="text" id="username" ng-model ="username" required>
                          </div>
 
                          <!-- Dates -->
@@ -91,13 +94,13 @@
                              <div class="form-group">
                                 <label for="startTime">Date From</label>
                                 <br/>
-                                <input class ="form-control" name="startTime" type="date" id="startTime" required>
+                                <input class ="form-control" name="startTime" type="date" id="startTime" ng-model ="startTime" required>
 
                              </div>
                              <div class="form-group">
                                  <label for="endTime">Date Through</label>
                                  <br/>
-                                 <input class ="form-control" name="endTime" type="date" id="endTime" required>
+                                 <input class ="form-control" name="endTime" type="date" id="endTime" ng-model ="endTime" required>
                               </div>
                          </div>
 
@@ -105,14 +108,14 @@
                          <div class="form-group">
                                <label for="notes">Additional Notes:</label>
                                <br/>
-                               <textarea class ="form-control" name="notes" rows="4" id="notes"></textarea>
+                               <textarea class ="form-control" name="notes" rows="4" id="notes" ng-model ="notes" ></textarea>
                           </div>
 
                  </div>
 
                  <!-- Modal Footer -->
                   <div class ="modal-footer">
-                    <input type="submit" value="Submit" id="submit" class="btn btn-primary">
+                    <input type="submit" value="Submit" id="submit" class="btn btn-primary" ng-click = "submit()">
                   </div>
                   </form>
              </div>
