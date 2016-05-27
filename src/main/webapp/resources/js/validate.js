@@ -27,7 +27,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
             console.log(status);
         });
     }
-
+    //Clear modal form after closing
     $('.modal').on('hidden.bs.modal', function(){
         $scope.errorMessage = null;
         $scope.username = null;
@@ -37,6 +37,41 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
         $scope.$apply();
     });
 
+    $scope.day = function(){
+    $http({
+      method: 'GET',
+      url: 'day'
+    }).then(function successCallback(response) {
+        $scope.content = response.data;
+      }, function errorCallback(response) {
+
+      });
+
+    }
+    $scope.week = function(){
+    $http({
+          method: 'GET',
+          url: 'week'
+        }).then(function successCallback(response) {
+            $scope.content = response.data;
+          }, function errorCallback(response) {
+
+          });
+    }
+    $scope.month = function(){
+    $http({
+          method: 'GET',
+          url: 'month'
+        }).then(function successCallback(response) {
+            $scope.content = response.data;
+          }, function errorCallback(response) {
+
+          });
+    }
+    //loads default view as day page
+    $scope.day()
 }]);
+
+
 
 

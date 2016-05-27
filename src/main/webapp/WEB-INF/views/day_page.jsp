@@ -65,9 +65,7 @@
          <div class="modal-dialog">
              <div class="modal-content">
                <!-- <form  action="add" method = "POST"> -->
-               <form ng-controller ="formctrl" ng-submit="submit()">
-
-
+               <form ng-submit="submit()">
                  <!-- Modal Header -->
                  <div class="modal-header">
                      <button type="button" class="close"
@@ -80,23 +78,19 @@
                      </h4>
                      <text id ="errorMessage" class="bg-danger text-danger" ng-model ="errorMessage">{{errorMessage}}</text>
                  </div>
-
                  <!-- Modal Body -->
                  <div class="modal-body">
-
                         <!-- Username -->
                          <div class="form-group">
                             <label for="username">Enter Username</label>
                             <input class ="form-control" name="username" type="text" id="username" ng-model ="username" required>
                          </div>
-
                          <!-- Dates -->
                          <div class="form-inline">
                              <div class="form-group">
                                 <label for="startTime">Date From</label>
                                 <br/>
                                 <input class ="form-control" name="startTime" type="date" id="startTime" ng-model ="startTime" required>
-
                              </div>
                              <div class="form-group">
                                  <label for="endTime">Date Through</label>
@@ -104,16 +98,13 @@
                                  <input class ="form-control" name="endTime" type="date" id="endTime" ng-model ="endTime" required>
                               </div>
                          </div>
-
                          <!-- Notes -->
                          <div class="form-group">
                                <label for="notes">Additional Notes:</label>
                                <br/>
                                <textarea class ="form-control" name="notes" rows="4" id="notes" ng-model ="notes" ></textarea>
                           </div>
-
                  </div>
-
                  <!-- Modal Footer -->
                   <div class ="modal-footer">
                     <input type="submit" value="Submit" id="submit" class="btn btn-primary" >
@@ -133,9 +124,9 @@
   </div>
   <div class="container">
   	<div class="topmenu">
-  		<a href="#" class="btn btn-topnav active">Day</a>
-  		<a href="#" class="btn btn-topnav">Week</a>
-  		<a href="#" class="btn btn-topnav">Month</a>
+  		<a  href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
+  		<a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
+  		<a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
   	</div>
   <div class="titlefeed">4 People are out today</div>
   <div class="sidebar"><button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
@@ -152,51 +143,7 @@
     
   </div>
   <div class="content" id="content-outline">
-  <table class="table table-day">
-              <thead class="thead-day">
-                <tr>
-                  <th width="25%">Employee</th>
-                  <th width="26%">Date</th>
-                  <th width="49%"><a href='#' id="load">Load</a></th>
-                </tr>
-              </thead>
-              <tbody>
-
-
-
-
-
-
-                <!-- <tr>
-                  <td><a href="#">John, Doe</a></td>
-                  <td>03-20-2016</td>
-                  <td><a href="#" class="btn btn-trash">
-  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#">Jane, Doe</a></td>
-                  <td>03-20-2016</td>
-                  <td><a href="#" class="btn btn-trash">
-  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#">John, Smith</a></td>
-                  <td>03-20-2016</td>
-                  <td><a href="#" class="btn btn-trash">
-  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#">Jane, Smith</a></td>
-                  <td>03-20-2016</td>
-                  <td><a href="#" class="btn btn-trash">
-  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-</a></td>
-                </tr>  -->
-              </tbody>
-            </table>
+      {{content}}
   </div>
 
 

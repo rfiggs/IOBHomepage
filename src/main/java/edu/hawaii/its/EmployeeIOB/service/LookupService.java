@@ -1,14 +1,9 @@
 package edu.hawaii.its.EmployeeIOB.service;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
-
+import edu.hawaii.its.EmployeeIOB.access.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -165,7 +160,7 @@ public final class LookupService {
         if(uhNumber == ""){
             result = "User not Found!";
         }else if(startDate == null || endDate == null){
-            result = "Please Enter a Valid Date";
+            result = "Invalid date please use format yyyy-mm-dd";
         }else if(startDate.after(endDate)){
             result = "start Date cannot be Greater than end Date";
         }else{
@@ -190,62 +185,6 @@ public final class LookupService {
             } catch (NamingException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (ps != null) {
-                        ps.close();
-                    }
-                    if (con != null) {
-                        con.close();
-                    }
-
-                } catch (SQLException e) {
-
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public static boolean validateAd(String uhNumber, String start, String end) {
-        boolean result = true;
-        Date startDate = toDate(start);
-        Date endDate = toDate(end);
-        String empid = getEmpid(uhNumber);
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        DataSource mysqlDS = null;
-        if (startDate.after(endDate)) {
-            result = false;
-        } else {
-            try {
-                String sql = "select absentdate.absdate from absentdate right join absent on " +
-                        "(absent.empid = ? and absent.absid = absentdate.absid) " +
-                        "where absentdate.absdate >= ? and absentdate.absdate <= ?";
-
-                mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
-                con = mysqlDS.getConnection();
-                ps = con.prepareStatement(sql);
-                ps.setString(1, empid);
-                ps.setDate(2, new java.sql.Date(startDate.getTime()));
-                ps.setDate(3, new java.sql.Date(endDate.getTime()));
-                rs = ps.executeQuery();
-                if (rs.next()) {
-                    result = false;
-                }
-
-
-            } catch (NamingException e) {
-                result = false;
-                e.printStackTrace();
-            } catch (SQLException e) {
-                result = false;
                 e.printStackTrace();
             } finally {
                 try {
@@ -329,6 +268,29 @@ public final class LookupService {
                 ps.setDate(2, new java.sql.Date(i.getTime()));
                 ps.executeUpdate();
 
+                User user = (User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+                String managerEmpid = "";
+                sql = "SELECT EMPID FROM EMPLOYEE " +
+                        "WHERE EMPUHNUMBER = ?";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, String.valueOf(user.getUhuuid()));
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    managerEmpid = rs.getString("EMPID");
+                }
+
+                //Add to action log
+                sql = "INSERT INTO ACTIONLOG (EMPID, ACTIONID, LOGDATE, MANAGERID, LOGNOTES) VALUES (?,?,?,?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, empid);
+                ps.setString(2, "1");
+                ps.setDate(3,new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+                ps.setString(4,managerEmpid);
+                ps.setString(5,"");
+                ps.executeUpdate();
+
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -355,12 +317,10 @@ public final class LookupService {
 
     private static Date toDate(String day) {
         try {
-           String temp = "Thu May 26 2016 00:00:00 GMT-1000 (HST)";
             SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss ");
             Date date = formatter.parse(day);
             return date;
         } catch (ParseException e) {
-            e.printStackTrace();
             return null;
         }
     }

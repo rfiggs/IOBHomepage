@@ -67,6 +67,7 @@
 </a></div> -->
   </div>
   <div class="container">
+  <div class="denied text-danger">${denied}</div>
   <div class="sidebar"><a class="btn btn-primary outline" id="login" href="day_page" >Login</a></div>
   <div class="content">
   <div class="newstitle">News and Announcements:</div>

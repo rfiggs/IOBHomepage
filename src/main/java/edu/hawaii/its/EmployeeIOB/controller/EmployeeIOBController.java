@@ -56,11 +56,29 @@ public class EmployeeIOBController {
         return mav;
 
     }
-    @RequestMapping(value = {"/test"}, method = RequestMethod.POST)
-    public ModelAndView test(@RequestParam String name){
-        System.out.println(name);
-        Map<String,String> model = new HashMap<String,String>();
-        model.put("result",name);
-        return  new ModelAndView("add",model);
+    @RequestMapping(value = {"/denied"}, method = RequestMethod.GET)
+    public ModelAndView denied(HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        String message = "No record found.  Please speak with your supervisor.";
+        return  new ModelAndView("landing","denied",message);
     }
+
+    @RequestMapping(value = {"/day"}, method = RequestMethod.GET)
+    public ModelAndView day(){
+        return  new ModelAndView("day");
+    }
+
+    @RequestMapping(value = {"/week"}, method = RequestMethod.GET)
+    public ModelAndView week(){
+        return  new ModelAndView("week");
+    }
+
+    @RequestMapping(value = {"/month"}, method = RequestMethod.GET)
+    public ModelAndView month(){
+        return  new ModelAndView("month");
+    }
+
 }
