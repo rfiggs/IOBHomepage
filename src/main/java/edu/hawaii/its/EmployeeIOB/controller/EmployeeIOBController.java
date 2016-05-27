@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,21 +48,19 @@ public class EmployeeIOBController {
                             @RequestParam String startTime,
                             @RequestParam String endTime,
                             @RequestParam String notes) {
-        String number = LookupService.getUhNumber(username);
-        ModelAndView mav;
-        if(number.equals("")){
-             mav = new ModelAndView("add","result","not in employee table");
-
-        }
-        else if(LookupService.validateAdd(number,startTime,endTime)) {
-            LookupService.addAbsence(number,startTime,endTime,notes);
-             mav = new ModelAndView("add", "result","Success!");
-
-        }
-        else{
-             mav = new ModelAndView("add", "result","Invalid date range");
-
+        String result = LookupService.validateAdd(username,startTime,endTime);
+        ModelAndView mav = new ModelAndView("add","result",result);
+        if(result.equalsIgnoreCase("SUCCESS")){
+            LookupService.addAbsence(username,startTime,endTime,notes);
         }
         return mav;
+
+    }
+    @RequestMapping(value = {"/test"}, method = RequestMethod.POST)
+    public ModelAndView test(@RequestParam String name){
+        System.out.println(name);
+        Map<String,String> model = new HashMap<String,String>();
+        model.put("result",name);
+        return  new ModelAndView("add",model);
     }
 }

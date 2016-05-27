@@ -9,6 +9,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <sec:csrfMetaTags />
     <link rel="icon" href="favicon.ico">
 
     <title>In Out App</title>
@@ -29,7 +30,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -63,10 +64,10 @@
           aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
+               <!-- <form  action="add" method = "POST"> -->
+               <form ng-controller ="formctrl" ng-submit="submit()">
 
-                 <form ng-controller ="formctrl" >
 
-                 <sec:csrfInput />
                  <!-- Modal Header -->
                  <div class="modal-header">
                      <button type="button" class="close"
@@ -77,7 +78,7 @@
                      <h4 class="modal-title" id="modalTitle">
                          Add Absence
                      </h4>
-                     <p ng-bind="errorMessage"></p>
+                     <text id ="errorMessage" class="bg-danger text-danger" ng-model ="errorMessage">{{errorMessage}}</text>
                  </div>
 
                  <!-- Modal Body -->
@@ -115,7 +116,7 @@
 
                  <!-- Modal Footer -->
                   <div class ="modal-footer">
-                    <input type="submit" value="Submit" id="submit" class="btn btn-primary" ng-click= "submit()">
+                    <input type="submit" value="Submit" id="submit" class="btn btn-primary" >
                   </div>
                   </form>
              </div>
@@ -156,19 +157,25 @@
                 <tr>
                   <th width="25%">Employee</th>
                   <th width="26%">Date</th>
-                  <th width="49%"></th>
+                  <th width="49%"><a href='#' id="load">Load</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a href="#">John, Doe</a></td>                  
+
+
+
+
+
+
+                <!-- <tr>
+                  <td><a href="#">John, Doe</a></td>
                   <td>03-20-2016</td>
                   <td><a href="#" class="btn btn-trash">
   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 </a></td>
                 </tr>
                 <tr>
-                  <td><a href="#">Jane, Doe</a></td>                  
+                  <td><a href="#">Jane, Doe</a></td>
                   <td>03-20-2016</td>
                   <td><a href="#" class="btn btn-trash">
   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -187,7 +194,7 @@
                   <td><a href="#" class="btn btn-trash">
   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 </a></td>
-                </tr>
+                </tr>  -->
               </tbody>
             </table>
   </div>
@@ -202,7 +209,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
     <script src="<c:url value="resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="resources/js/docs.min.js"/>"></script>
     <script src="<c:url value="resources/js/validate.js"/>"></script>

@@ -1,26 +1,42 @@
 
 var app = angular.module('EmployeeIOB',[]);
 
-app.controller('formctrl', function($scope) {
+
+app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$location) {
     $scope.submit = function() {
-    if(($scope.username != null) && ($scope.startTime!=null) && ($scope.endTime != null)){
-       console.log($scope.username);
-       console.log($scope.startTime);
-       console.log($scope.endTime);
-       console.log($scope.notes);
-       }
-    };
+        var token = $("meta[name='_csrf']").attr("content")
+        $http({
+            method: 'POST',
+            url: "add",
+            data: $.param({'username' : $scope.username,
+             'startTime':$scope.startTime,
+              'endTime': $scope.endTime,
+               'notes' : $scope.notes }),
 
-});
-app.controller('ctrl', function($scope) {
+            headers: { 'X-CSRF-Token' : token,
+                       'Content-Type': 'application/x-www-form-urlencoded'
+                       }
+        }).success(function(data,status,headers,config){
+            if(data.search("SUCCESS")!=-1){
+                $('#myModal').modal('hide');
+            }
+            else{
+                $scope.errorMessage = data;
+            }
+        }).error(function(data,status,headers,config){
+            console.log(status);
+        });
+    }
+
+    $('.modal').on('hidden.bs.modal', function(){
+        $scope.errorMessage = null;
+        $scope.username = null;
+        $scope.startTime= null;
+        $scope.endTime = null;
+        $scope.notes = null;
+        $scope.$apply();
+    });
+
+}]);
 
 
-});
-
-function add(username,start,end,notes){
-    console.log(username);
-    console.log(start);
-    console.log(end);
-    console.log(notes);
-
-}
