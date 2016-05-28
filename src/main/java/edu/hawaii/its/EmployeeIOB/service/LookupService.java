@@ -331,16 +331,16 @@ public final class LookupService {
         ArrayList<Date> dates = new ArrayList<Date>();
         Date startDate = toDate(start);
         Date endDate = toDate(end);
-        //  if(!startDate.after(endDate)) {
-        Date it = startDate;
-        do {
-            dates.add(it);
-            Calendar c = Calendar.getInstance();
-            c.setTime(it);
-            c.add(Calendar.DATE, 1);
-            it = c.getTime();
-        } while (!it.after(endDate));
-        //    }
+        if(!startDate.after(endDate)) {
+            Date it = startDate;
+            do {
+                dates.add(it);
+                Calendar c = Calendar.getInstance();
+                c.setTime(it);
+                c.add(Calendar.DATE, 1);
+                it = c.getTime();
+            } while (!it.after(endDate));
+        }
 
 
         return dates;
