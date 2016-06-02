@@ -1,6 +1,6 @@
 package edu.hawaii.its.EmployeeIOB.access;
 
-import edu.hawaii.its.EmployeeIOB.service.LookupService;
+import edu.hawaii.its.EmployeeIOB.service.MysqlService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,11 +12,12 @@ public class UserBuilder {
 
     public User make(UhAttributes attributes){
         String username = attributes.getUid();
-        Long uhnumber = Long.valueOf(attributes.getUhUuid());
+        String uhnumber = attributes.getUhUuid();
         RoleHolder roleHolder = new RoleHolder();
         roleHolder.add(Role.ANONYMOUS);
         roleHolder.add(Role.UH);
-        String role = LookupService.getRole(String.valueOf(uhnumber));
+        MysqlService s = new MysqlService();
+        String role = s.getRoleFromUhnumber(uhnumber);
         if(role.equalsIgnoreCase("Student")){
             roleHolder.add(Role.EMPLOYEE);
         }
@@ -24,7 +25,7 @@ public class UserBuilder {
             roleHolder.add(Role.EMPLOYEE);
             roleHolder.add(Role.MANAGER);
         }
-        User user = new User(username,uhnumber,roleHolder.getAuthorites());
+        User user = new User(username,Long.valueOf(uhnumber),roleHolder.getAuthorites());
         user.setAttributes(attributes);
 
         return user;

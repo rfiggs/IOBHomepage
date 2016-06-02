@@ -3,8 +3,8 @@
     <tr ng-repeat="x in dayList track by x.absid">
         <td><a href="#">{{x.firstname}}, {{x.lastname}}</a></td>
         <td>{{x.date}}</td>
-        <td><a href="#" class="btn btn-trash">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <td><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
         </a></td>
     </tr>
     </tbody>

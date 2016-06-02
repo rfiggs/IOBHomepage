@@ -75,6 +75,21 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
 
           });
     }
+    $scope.remove = function (absid){
+        var token = $("meta[name='_csrf']").attr("content")
+                $http({
+                    method: 'POST',
+                    url: "remove",
+                    data: $.param({'absid' : absid}),
+                    headers: { 'X-CSRF-Token' : token,
+                               'Content-Type': 'application/x-www-form-urlencoded'
+                               }
+                }).success(function(data,status,headers,config){
+                    console.log("removed")
+                }).error(function(data,status,headers,config){
+                    console.log(status);
+                });
+    }
     //loads default view as day page
     $scope.day()
 }]);
