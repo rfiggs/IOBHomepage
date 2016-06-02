@@ -1,12 +1,16 @@
 package edu.hawaii.its.EmployeeIOB.access;
 
 import edu.hawaii.its.EmployeeIOB.service.LookupService;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by bobbyfiggs on 5/16/16.
  */
+@Service("userBuilder")
 public class UserBuilder {
-    public static User make(UhAttributes attributes){
+
+
+    public User make(UhAttributes attributes){
         String username = attributes.getUid();
         Long uhnumber = Long.valueOf(attributes.getUhUuid());
         RoleHolder roleHolder = new RoleHolder();
@@ -24,5 +28,8 @@ public class UserBuilder {
         user.setAttributes(attributes);
 
         return user;
+    }
+    public void printsomething(){
+        System.out.println("something");
     }
 }

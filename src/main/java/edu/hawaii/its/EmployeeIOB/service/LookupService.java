@@ -61,6 +61,48 @@ public final class LookupService {
         return result;
     }
 
+    public static boolean absidExists(String absid) {
+        boolean result = true;
+        String sql = "SELECT ABSID FROM ABSENT " +
+                "WHERE ABSID = ?";
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        DataSource mysqlDS = null;
+
+        try {
+            mysqlDS = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/TestDB");
+            con = mysqlDS.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, absid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                result = false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException e) {
+
+            }
+        }
+        return result;
+    }
+
     public static String getEmpid(String uhnumber) {
         String result = "";
         String sql = "SELECT EMPID FROM EMPLOYEE " +
@@ -146,6 +188,7 @@ public final class LookupService {
         }
         return result;
     }
+
 
     public static String validateAdd(String username, String start, String end){
         String result = "SUCCESS";

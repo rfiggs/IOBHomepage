@@ -1,56 +1,60 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans.xsd 
  http://www.springframework.org/schema/security 
  http://www.springframework.org/schema/security/spring-security.xsd
  http://www.springframework.org/schema/context
- http://www.springframework.org/schema/context/spring-context.xsd">
- 
- 	<context:property-placeholder location = "classpath:/IOB.properties" />
- 
- 	<bean id = "serviceProperties" class ="org.springframework.security.cas.ServiceProperties">
- 		<property name="service" value = "http://localhost:8080/EmployeeIOB/j_spring_cas_security_check"/>
- 		<property name="sendRenew" value="true"/>
- 	</bean>
- 	
- 	<security:http entry-point-ref ="casEntryPoint" use-expressions ="true">
- 		<security:intercept-url pattern="/" access="permitAll"/>
- 		<security:intercept-url pattern="/landing" access="permitAll" />
+ http://www.springframework.org/schema/context/spring-context.xsd
+ http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<tx:annotation-driven/>
+	<context:component-scan base-package="edu.hawaii.its.EmployeeIOB"/>
+	<context:property-placeholder location = "classpath:/IOB.properties" />
+
+	<bean id = "serviceProperties" class ="org.springframework.security.cas.ServiceProperties">
+		<property name="service" value = "http://localhost:8080/EmployeeIOB/j_spring_cas_security_check"/>
+		<property name="sendRenew" value="true"/>
+	</bean>
+
+	<security:http entry-point-ref ="casEntryPoint" use-expressions ="true">
+		<security:intercept-url pattern="/" access="permitAll"/>
+		<security:intercept-url pattern="/landing" access="permitAll" />
 		<security:intercept-url pattern="/logout" access = "permitAll"/>
 		<security:intercept-url pattern="/denied" access = "permitAll"/>
- 		<security:intercept-url pattern="/*" access="hasRole('ROLE_EMPLOYEE')"/>
+		<security:intercept-url pattern="/*" access="hasRole('ROLE_EMPLOYEE')"/>
 		<security:access-denied-handler error-page="/denied"/>
 		<security:custom-filter position ="CAS_FILTER" ref ="casFilter"/>
- 	</security:http>
- 
- 	<bean id ="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
- 		<property name="authenticationManager" ref="authenticationManager"/>
- 	</bean>
- 	
- 	<bean id ="casEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
- 		<property name = "loginUrl" value="${Login_Url}"/>
- 		<property name ="serviceProperties" ref="serviceProperties"/>
- 	</bean>
- 
- 	<security:authentication-manager alias ="authenticationManager">
- 		<security:authentication-provider ref ="casAuthenticationProvider"/>
- 	</security:authentication-manager>
- 	
- 	<bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
- 		<property name="authenticationUserDetailsService" ref="EmployeeIOBUserDetailsService"/>
- 		<property name="serviceProperties" ref ="serviceProperties"/>
- 		<property name= "ticketValidator">
- 			<bean class ="${Validator}">
- 				<constructor-arg index="0" value="${Base_Url}"/>
-				<property name="tolerance" value="180000"/>
- 			</bean>
- 		</property>
- 		<property name="key" value="an_id_for_this_auth_provider_only"/>
- 	</bean>
- 
- 	<bean id="EmployeeIOBUserDetailsService" class="edu.hawaii.its.EmployeeIOB.access.UserDetailsServiceImpl" />
+	</security:http>
 
- </beans>
+	<bean id ="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager"/>
+	</bean>
+
+	<bean id ="casEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+		<property name = "loginUrl" value="${Login_Url}"/>
+		<property name ="serviceProperties" ref="serviceProperties"/>
+	</bean>
+
+	<security:authentication-manager alias ="authenticationManager">
+		<security:authentication-provider ref ="casAuthenticationProvider"/>
+	</security:authentication-manager>
+
+	<bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+		<property name="authenticationUserDetailsService" ref="EmployeeIOBUserDetailsService"/>
+		<property name="serviceProperties" ref ="serviceProperties"/>
+		<property name= "ticketValidator">
+			<bean class ="${Validator}">
+				<constructor-arg index="0" value="${Base_Url}"/>
+				<property name="tolerance" value="180000"/>
+			</bean>
+		</property>
+		<property name="key" value="an_id_for_this_auth_provider_only"/>
+	</bean>
+
+	<bean id="EmployeeIOBUserDetailsService" class="edu.hawaii.its.EmployeeIOB.access.UserDetailsServiceImpl" />
+
+
+</beans>

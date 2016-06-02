@@ -3,6 +3,7 @@ package edu.hawaii.its.EmployeeIOB.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.hawaii.its.EmployeeIOB.access.Absence;
 import edu.hawaii.its.EmployeeIOB.access.User;
 import edu.hawaii.its.EmployeeIOB.service.LookupService;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,18 +45,18 @@ public class EmployeeIOBController {
         return "landing";
     }
 
-    @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/add"}, method = RequestMethod.POST, produces ="application/text")
     @ResponseStatus(HttpStatus.OK)
-    public ModelAndView add(@RequestParam String username,
+    public @ResponseBody String add(@RequestParam String username,
                             @RequestParam String startTime,
                             @RequestParam String endTime,
                             @RequestParam String notes) {
         String result = LookupService.validateAdd(username,startTime,endTime);
-        ModelAndView mav = new ModelAndView("add","result",result);
         if(result.equalsIgnoreCase("SUCCESS")){
             LookupService.addAbsence(username,startTime,endTime,notes);
+
         }
-        return mav;
+        return result;
 
     }
     @RequestMapping(value = {"/denied"}, method = RequestMethod.GET)
@@ -66,19 +69,32 @@ public class EmployeeIOBController {
         return  new ModelAndView("landing","denied",message);
     }
 
-    @RequestMapping(value = {"/day"}, method = RequestMethod.GET)
-    public ModelAndView day(){
-        return  new ModelAndView("day");
+    @RequestMapping(value = {"/day"}, method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List<Absence> day(){
+        List<Absence> absences = new ArrayList<Absence>();
+
+        absences.add(new Absence("Robert","Figgs","05052016","1"));
+        absences.add(new Absence("Robert","Figgs","05062016","2"));
+        absences.add(new Absence("Robert","Figgs","05072016","3"));
+
+        return absences;
     }
 
     @RequestMapping(value = {"/week"}, method = RequestMethod.GET)
-    public ModelAndView week(){
-        return  new ModelAndView("week");
+    public @ResponseBody
+    List<List<Absence>> week(){
+        List<List<Absence>> week = new ArrayList<List<Absence>>();
+
+        return week;
     }
 
     @RequestMapping(value = {"/month"}, method = RequestMethod.GET)
-    public ModelAndView month(){
-        return  new ModelAndView("month");
+    public @ResponseBody
+    List<List<Absence>> month(){
+        List<List<Absence>> month = new ArrayList<List<Absence>>();
+
+        return  month;
     }
 
 }

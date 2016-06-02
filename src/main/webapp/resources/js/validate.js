@@ -1,8 +1,10 @@
 
 var app = angular.module('EmployeeIOB',[]);
 
-
 app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$location) {
+    $scope.dayList = [];
+    $scope.weekList = [];
+    $scope.monthList=[];
     $scope.submit = function() {
         var token = $("meta[name='_csrf']").attr("content")
         $http({
@@ -17,7 +19,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
                        'Content-Type': 'application/x-www-form-urlencoded'
                        }
         }).success(function(data,status,headers,config){
-            if(data.search("SUCCESS")!=-1){
+            if(data =="SUCCESS"){
                 $('#myModal').modal('hide');
             }
             else{
@@ -38,32 +40,37 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
     });
 
     $scope.day = function(){
+    $scope.template ='resources/templates/day.html';
     $http({
       method: 'GET',
       url: 'day'
     }).then(function successCallback(response) {
-        $scope.content = response.data;
+        $scope.dayList = angular.fromJson(response.data);
+
+
       }, function errorCallback(response) {
 
       });
 
     }
     $scope.week = function(){
+    $scope.template ='resources/templates/week.html';
     $http({
           method: 'GET',
           url: 'week'
         }).then(function successCallback(response) {
-            $scope.content = response.data;
+
           }, function errorCallback(response) {
 
           });
     }
     $scope.month = function(){
+    $scope.template ='resources/templates/month.html';
     $http({
           method: 'GET',
           url: 'month'
         }).then(function successCallback(response) {
-            $scope.content = response.data;
+
           }, function errorCallback(response) {
 
           });
