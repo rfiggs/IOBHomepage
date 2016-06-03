@@ -10,9 +10,12 @@ public class AbsenceDate {
     private Date date;
     private List<Absence> absences;
 
-    public AbsenceDate(Date date, List<Absence> absences) {
+    public AbsenceDate(){
+
+    }
+
+    public AbsenceDate(Date date) {
         this.date = date;
-        this.absences = absences;
     }
 
     public Date getDate() {
@@ -29,5 +32,9 @@ public class AbsenceDate {
 
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;
+    }
+
+    public void add(Absence ab){
+        absences.add(ab);
     }
 }

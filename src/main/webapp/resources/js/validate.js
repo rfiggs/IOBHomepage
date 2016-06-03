@@ -2,9 +2,8 @@
 var app = angular.module('EmployeeIOB',[]);
 
 app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$location) {
-    $scope.dayList = [];
-    $scope.weekList = [];
-    $scope.monthList=[];
+    $scope.dayList =[];
+    $scope.absences = {};
     $scope.submit = function() {
         var token = $("meta[name='_csrf']").attr("content")
         $http({
@@ -45,8 +44,15 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
       method: 'GET',
       url: 'day'
     }).then(function successCallback(response) {
-        $scope.dayList = angular.fromJson(response.data);
+        console.log(response.data)
+        $scope.absences = angular.fromJson(response.data);
 
+        console.log($scope.absences)
+        for(key in $scope.absences){
+            console.log(key)
+            console.log($scope.absences[key])
+            $scope.dayList = $scope.absences[key]
+        }
 
       }, function errorCallback(response) {
 

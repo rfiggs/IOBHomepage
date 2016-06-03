@@ -16,7 +16,7 @@ public class Absence {
         this.absid = absid;
     }
 
-    public String getFirstname() {
+    public String getFirstname(){
         return firstname;
     }
 

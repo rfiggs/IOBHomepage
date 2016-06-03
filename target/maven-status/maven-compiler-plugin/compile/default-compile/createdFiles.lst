@@ -1,11 +1,10 @@
 edu/hawaii/its/EmployeeIOB/access/Role.class
-edu/hawaii/its/EmployeeIOB/service/LookupService.class
+edu/hawaii/its/EmployeeIOB/access/UserDetailsServiceImpl.class
+edu/hawaii/its/EmployeeIOB/access/RoleHolder.class
 edu/hawaii/its/EmployeeIOB/access/UhAttributes.class
 edu/hawaii/its/EmployeeIOB/controller/EmployeeIOBController.class
+edu/hawaii/its/EmployeeIOB/access/UserBuilder.class
+edu/hawaii/its/EmployeeIOB/access/Absence.class
 edu/hawaii/its/EmployeeIOB/service/MysqlService.class
 edu/hawaii/its/EmployeeIOB/access/AbsenceDate.class
 edu/hawaii/its/EmployeeIOB/access/User.class
-edu/hawaii/its/EmployeeIOB/access/UserDetailsServiceImpl.class
-edu/hawaii/its/EmployeeIOB/access/RoleHolder.class
-edu/hawaii/its/EmployeeIOB/access/UserBuilder.class
-edu/hawaii/its/EmployeeIOB/access/Absence.class

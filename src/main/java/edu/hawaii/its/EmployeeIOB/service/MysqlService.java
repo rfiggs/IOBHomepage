@@ -1,6 +1,8 @@
 package edu.hawaii.its.EmployeeIOB.service;
 
 
+import edu.hawaii.its.EmployeeIOB.access.Absence;
+import edu.hawaii.its.EmployeeIOB.access.AbsenceDate;
 import edu.hawaii.its.EmployeeIOB.access.User;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,14 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.Date;
 
 /**
@@ -241,14 +239,66 @@ public class MysqlService {
         }
     }
 
+    public Map<String,List<Absence>> getAbsences(String start, String end){
+        return getAbsences(toDate(start),toDate(end));
+    }
+
+    public Map<String,List<Absence>> getAbsences(Date start, Date end){
+        Map<String,List<Absence>> absences = new HashMap<String, List<Absence>>();
+        if(!start.after(end)){
+            try {
+                String sql = "Select empfirstname, emplastname, absent.absid, absdate " +
+                        "From absent " +
+                        "join absentdate on absent.absid = absentdate.absid " +
+                        "join employee on employee.empid = absent.empid " +
+                        "where absdate >= ? and absdate <= ?";
+                ps = con.prepareStatement(sql);
+                ps.setDate(1,new java.sql.Date(start.getTime()));
+                ps.setDate(2,new java.sql.Date(end.getTime()));
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    String firstname = rs.getString("empfirstname");
+                    String lastname = rs.getString("emplastname");
+                    String date = rs.getString("absdate");
+                    SimpleDateFormat incoming = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat outgoing = new SimpleDateFormat("yyyy-MM-dd");
+                    String formatted = outgoing.format(incoming.parse(date));
+                    String absid = rs.getString("absid");
+                    Absence ab = new Absence(firstname, lastname, formatted, absid);
+                    if(!absences.containsKey(date)){
+                        absences.put(date,new ArrayList<Absence>());
+                    }
+                    absences.get(date).add(ab);
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return absences;
+    }
+
     private static Date toDate(String day) {
+        Date date = null;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss ");
-            Date date = formatter.parse(day);
-            return date;
+             date = formatter.parse(day);
+
         } catch (ParseException e) {
-            return null;
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                date = formatter.parse(day);
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+
         }
+        return date;
+
     }
 
     private static ArrayList<Date> getDateRange(String start, String end) {

@@ -14,8 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class EmployeeIOBController {
@@ -59,6 +58,7 @@ public class EmployeeIOBController {
     public @ResponseBody boolean remove(@RequestParam String absid){
         MysqlService s = new MysqlService();
         s.removeAbsence(absid);
+        s.close();
         return true;
     }
 
@@ -74,14 +74,10 @@ public class EmployeeIOBController {
 
     @RequestMapping(value = {"/day"}, method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List<Absence> day(){
-        List<Absence> absences = new ArrayList<Absence>();
+    Map<String,List<Absence>> day(){
+        Date today = Calendar.getInstance().getTime();
 
-        absences.add(new Absence("Robert","Figgs","05052016","1"));
-        absences.add(new Absence("Robert","Figgs","05062016","2"));
-        absences.add(new Absence("Robert","Figgs","05072016","3"));
-
-        return absences;
+        return getAbsences(today,today);
     }
 
     @RequestMapping(value = {"/week"}, method = RequestMethod.GET)
@@ -98,6 +94,13 @@ public class EmployeeIOBController {
         List<List<Absence>> month = new ArrayList<List<Absence>>();
 
         return  month;
+    }
+
+    public Map<String,List<Absence>> getAbsences(Date start, Date end){
+        MysqlService service = new MysqlService();
+        Map<String,List<Absence>> map = service.getAbsences(start,end);
+        service.close();
+        return  map;
     }
 
 }

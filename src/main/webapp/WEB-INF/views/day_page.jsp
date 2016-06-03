@@ -148,7 +148,6 @@
     
   </div>
   <div class="content" id="content-outline">
-
         <ng-include src='template'></ng-include>
   </div>
 
