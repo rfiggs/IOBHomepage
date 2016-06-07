@@ -26,10 +26,13 @@
     
     <!-- Custom styles for this template -->
     <link href="<c:url value="/resources/css/template-style.css"/>" rel="stylesheet">
+    <!--<link href="<c:url value="/resources/css/template-style.css"/>" rel="stylesheet">-->
 
     <!-- AngularJS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
+
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -121,32 +124,37 @@
 
   <div class="topbar">
   	<h1>ITS Out Board</h1>
-  		<div class="input-group-lg">
-  		<input type="text" placeholder="Search Employee" class="form-control" id="search">
-  		<a href="#" class="btn btn-search">
-  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-</a></div> 
+  		<div class="input-group-lg search-bar">
+            <input type="text" placeholder="Search Employee" class="form-control" id="search">
+            <button class="btn btn-search">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+        </div>
   </div>
   <div class="container">
   	<div class="topmenu">
-  		<a  href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
+  		<a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
   		<a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
   		<a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
   	</div>
   <div class="titlefeed">4 People are out today</div>
-  <div class="sidebar"><button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
-
-  <div class="datecontain">
-  	<time datetime="2016-09-20" class="icon">
-  		<em>Saturday 2016</em>
-  		<strong>March</strong>
-  		<span>20</span>
-	</time>
-    <h3 ><a id="logout" href="logout">Logout</a></h3>
-    </div>
-
-    
+  <div class="sidebar">
+      <button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
+      </button>
+      <div class="datecontain">
+        <time datetime="2016-09-20" class="icon">
+            <em>Saturday 2016</em>
+            <strong>March</strong>
+            <span>20</span>
+        </time>
+        <div style="min-width:200px; min-height:200px;">
+            <uib-datepicker ng-model="dt" class="custom-size" datepicker-options="options"></uib-datepicker>
+        </div>
+      </div>
+      <h3 ><a id="logout" href="logout">Logout</a></h3>
   </div>
+
   <div class="content" id="content-outline">
         <ng-include src='template'></ng-include>
   </div>
@@ -161,7 +169,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-
+    <script src="<c:url value="resources/js/ui-bootstrap-tpls-1.3.3.min.js"/>"></script>
     <script src="<c:url value="resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="resources/js/docs.min.js"/>"></script>
     <script src="<c:url value="resources/js/validate.js"/>"></script>

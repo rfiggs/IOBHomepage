@@ -1,1 +1,41 @@
-month
+<style>
+    .table{
+    table-layout:fixed;
+    overflow:hidden;
+    }
+    .tr , td{
+    overflow:hidden;
+    }
+
+    #monthEntry{
+    font-size: 66%;
+    }
+</style>
+
+<table class ="table">
+    <tbody>
+    <tr>
+        <td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
+    </tr>
+
+    <tr ng-repeat = "weekRow in calendar">
+
+            <td ng-repeat ="item in weekRow track by $index" style = "vertical-align:top; border:1px solid grey;">
+                <div style="">
+                <table class = "table table-condensed">
+                    <thead>
+                    {{item.val}}
+                    </thead>
+                   <tbody>
+                    <tr ng-repeat="x in absences[item.key] track by x.absid">
+                        <td><a id = "monthEntry" href="#">{{x.firstname}}, {{x.lastname}}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <br/>
+            </td>
+
+    </tr>
+    </tbody>
+</table>

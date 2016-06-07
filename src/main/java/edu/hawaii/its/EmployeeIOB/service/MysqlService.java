@@ -261,15 +261,14 @@ public class MysqlService {
                     String lastname = rs.getString("emplastname");
                     String date = rs.getString("absdate");
                     SimpleDateFormat incoming = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    SimpleDateFormat outgoing = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat outgoing = new SimpleDateFormat("EEE MMM dd yyyy");
                     String formatted = outgoing.format(incoming.parse(date));
                     String absid = rs.getString("absid");
                     Absence ab = new Absence(firstname, lastname, formatted, absid);
-                    if(!absences.containsKey(date)){
-                        absences.put(date,new ArrayList<Absence>());
+                    if(!absences.containsKey(formatted)){
+                        absences.put(formatted,new ArrayList<Absence>());
                     }
-                    absences.get(date).add(ab);
-
+                   absences.get(formatted).add(ab);
                 }
 
             } catch (SQLException e) {
@@ -293,12 +292,18 @@ public class MysqlService {
                 date = formatter.parse(day);
 
             } catch (ParseException e1) {
-                e1.printStackTrace();
+                try {
+                    SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy");
+                    date = formatter.parse(day);
+
+                } catch (ParseException e2) {
+                    System.out.println("Invlaid date format");
+                }
             }
-
         }
-        return date;
-
+        finally {
+            return date;
+        }
     }
 
     private static ArrayList<Date> getDateRange(String start, String end) {

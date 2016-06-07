@@ -27,6 +27,7 @@
 		<angularjs.version>1.5.5</angularjs.version>
 		<jackson-core.version>2.7.4</jackson-core.version>
 
+		<angular-ui-bootstrap.version>1.3.3</angular-ui-bootstrap.version>
 	</properties>
 
 	<dependencies>
@@ -247,6 +248,12 @@
 			<version>${angularjs.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-ui-bootstrap</artifactId>
+			<version>${angular-ui-bootstrap.version}</version>
+		</dependency>
+
 		<!-- for json conversion -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -265,6 +272,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-core.version}</version>
 		</dependency>
+
 
 
 

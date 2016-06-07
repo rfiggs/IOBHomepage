@@ -1,9 +1,12 @@
+var app = angular.module('EmployeeIOB',['ui.bootstrap']);
 
-var app = angular.module('EmployeeIOB',[]);
 
-app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$location) {
-    $scope.dayList =[];
-    $scope.absences = {};
+
+app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($scope,$http,$location,$filter) {
+    $scope.calendar=[[]];
+    $scope.dates =[];
+    $scope.absences = [];
+    $scope.options = { 'showWeeks': false };
     $scope.submit = function() {
         var token = $("meta[name='_csrf']").attr("content")
         $http({
@@ -40,46 +43,35 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
 
     $scope.day = function(){
     $scope.template ='resources/templates/day.html';
-    $http({
-      method: 'GET',
-      url: 'day'
-    }).then(function successCallback(response) {
-        console.log(response.data)
-        $scope.absences = angular.fromJson(response.data);
-
-        console.log($scope.absences)
-        for(key in $scope.absences){
-            console.log(key)
-            console.log($scope.absences[key])
-            $scope.dayList = $scope.absences[key]
-        }
-
-      }, function errorCallback(response) {
-
-      });
+    today = new Date()
+    dayString = today.toDateString();
+    $scope.getAbsences(dayString,dayString);
 
     }
     $scope.week = function(){
     $scope.template ='resources/templates/week.html';
-    $http({
-          method: 'GET',
-          url: 'week'
-        }).then(function successCallback(response) {
+    start = new Date();
+    end = new Date();
+    start.setDate(start.getDate()-3)
+    end.setDate(end.getDate()+3)
+    startString = start.toDateString();
+    endString = end.toDateString();
+    $scope.getAbsences(startString,endString)
 
-          }, function errorCallback(response) {
 
-          });
+
     }
     $scope.month = function(){
     $scope.template ='resources/templates/month.html';
-    $http({
-          method: 'GET',
-          url: 'month'
-        }).then(function successCallback(response) {
+    start = new Date();
+    start.setDate(1);
+    end = new Date()
+    end.setMonth(end.getMonth()+1)
+    end.setDate(0)
+    console.log(start.toDateString())
+    console.log(end.toDateString())
+    $scope.getAbsences(start,end)
 
-          }, function errorCallback(response) {
-
-          });
     }
     $scope.remove = function (absid){
         var token = $("meta[name='_csrf']").attr("content")
@@ -96,10 +88,53 @@ app.controller('ctrl', ['$scope', '$http', '$location', function($scope,$http,$l
                     console.log(status);
                 });
     }
+    $scope.getAbsences = function(start,end){
+
+        var token = $("meta[name='_csrf']").attr("content")
+        $http({
+            method: 'POST',
+            url: "lookup",
+            data: $.param({'start' : start , 'end':end}),
+            headers: { 'X-CSRF-Token' : token,
+                       'Content-Type': 'application/x-www-form-urlencoded'
+             }
+            }).success(function(data,status,headers,config){
+                temp = [];
+                console.log(data)
+                for(x in data){
+                    temp.push({ 'key' : x, 'date': new Date(x)})
+                }
+                $scope.dates = $filter('orderBy')(temp,'date')
+                $scope.buildMonth(new Date());
+                $scope.absences = data;
+                console.log($scope.dates)
+            }).error(function(data,status,headers,config){
+                console.log(status);
+        });
+    }
+
+    $scope.buildMonth = function(day){
+            start = new Date(day.getTime());
+            start.setDate(1);
+            start.setDate(start.getDate()-start.getDay())
+            console.log(start)
+            end = new Date(day.getTime())
+            end.setMonth(end.getMonth()+1)
+            end.setDate(0)
+            end.setDate(end.getDate()+(6-end.getDay()))
+            console.log(end)
+            tempMonth = [[]];
+            week = 0;
+            for(i = new Date(start.getTime()); i.getTime()<=end.getTime(); i.setDate(i.getDate()+1)){
+
+                tempMonth[week][i.getDay()] = {'key':i.toDateString(),'val':i.getDate()};
+                if(i.getDay()==6){
+                week += 1;
+                tempMonth[week]=[]
+                }
+            }
+            $scope.calendar = tempMonth;
+         }
     //loads default view as day page
     $scope.day()
 }]);
-
-
-
-

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -75,7 +76,8 @@ public class EmployeeIOBController {
     @RequestMapping(value = {"/day"}, method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map<String,List<Absence>> day(){
-        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String today = format.format(Calendar.getInstance().getTime());
 
         return getAbsences(today,today);
     }
@@ -95,8 +97,10 @@ public class EmployeeIOBController {
 
         return  month;
     }
-
-    public Map<String,List<Absence>> getAbsences(Date start, Date end){
+    @RequestMapping(value = {"/lookup"}, method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody Map<String,List<Absence>> getAbsences(
+            @RequestParam String start,
+            @RequestParam String end){
         MysqlService service = new MysqlService();
         Map<String,List<Absence>> map = service.getAbsences(start,end);
         service.close();

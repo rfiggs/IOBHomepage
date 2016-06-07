@@ -1,1 +1,27 @@
-week
+
+<table class ="table">
+    <tbody>
+    <tr>
+        <td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
+    </tr>
+    <tr>
+    <td id="week" ng-repeat ="item in calendar[0] track by $index " style = "vertical-align:top;">
+        <table class = "table">
+            <thead>
+            {{item.val}}
+            </thead>
+            <tbody>
+            <tr ng-repeat="x in absences[item.key] track by x.absid">
+                <td><a href="#">{{x.firstname}}, {{x.lastname}}</a></td>
+                <td><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+    </td>
+    </tr>
+    </tbody>
+</table>
+
