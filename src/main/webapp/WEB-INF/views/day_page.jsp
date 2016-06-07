@@ -25,7 +25,7 @@
     <link href="<c:url value="/resources/css/custom-bootstrap.css"/>" rel="stylesheet">
     
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/resources/css/template-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
     <!--<link href="<c:url value="/resources/css/template-style.css"/>" rel="stylesheet">-->
 
     <!-- AngularJS -->
@@ -131,33 +131,36 @@
             </button>
         </div>
   </div>
-  <div class="container">
-  	<div class="topmenu">
-  		<a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
-  		<a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
-  		<a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
-  	</div>
-  <div class="titlefeed">4 People are out today</div>
-  <div class="sidebar">
-      <button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
-      </button>
-      <div class="datecontain">
-        <time datetime="2016-09-20" class="icon">
-            <em>Saturday 2016</em>
-            <strong>March</strong>
-            <span>20</span>
-        </time>
-        <div style="min-width:200px; min-height:200px;">
-            <uib-datepicker ng-model="dt" class="custom-size" datepicker-options="options"></uib-datepicker>
-        </div>
-      </div>
-      <h3 ><a id="logout" href="logout">Logout</a></h3>
-  </div>
 
-  <div class="content" id="content-outline">
+  <!--<div class = "main">-->
+    <div class="sidebar">
+        <button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
+        </button>
+        <div class="datecontain">
+          <time datetime="2016-09-20" class="icon">
+              <em>Saturday 2016</em>
+              <strong>March</strong>
+              <span>20</span>
+          </time>
+          <div class ="datePicker">
+              <uib-datepicker ng-model="dt" class="custom-size" datepicker-options="options"></uib-datepicker>
+          </div>
+        </div>
+        <h3 ><a id="logout" href="logout">Logout</a></h3>
+    </div>
+
+    <div class ="content">
+        <div class="topmenu">
+            <a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
+            <a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
+            <a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
+        </div>
+        <div class="titlefeed">4 People are out today</div>
         <ng-include src='template'></ng-include>
-  </div>
+   <!-- </div> -->
+
+ </div>
 
 
     
