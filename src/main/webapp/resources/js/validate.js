@@ -6,7 +6,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
     $scope.calendar=[[]];
     $scope.dates =[];
     $scope.absences = [];
-    $scope.options = { 'showWeeks': false };
+    $scope.options = { 'showWeeks': false, 'datePickerMode':'day' };
     $scope.submit = function() {
         var token = $("meta[name='_csrf']").attr("content")
         $http({
