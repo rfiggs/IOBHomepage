@@ -1,8 +1,6 @@
 
 
-div{
-border: 1px solid black;
-}
+div{border: 1px solid black;}
 
 .topbar {
 	width: 100%;
@@ -47,19 +45,9 @@ color:#4ba9cf
 	right: 47%;
 	background-color:transparent;
 }
-.sidebar {
-float:left;
-width: 260px;
-margin: 50px;
-}
-.content{
-margin-left: 360px;
-margin-top:50px;
-max-width: 700px;
-}
-.datePicker{
-
-}
+.sidebar {float:left;width: auto;margin: 50px;}
+.content{float: left;margin-top:50px;max-width: 700px;}
+.datePicker{box-shadow: 1px 1px 0px 0px #888;}
 .table-day{
 max-width : 500px;
 }
@@ -69,16 +57,19 @@ time.icon
   font-size: 1em; /* change icon size */
   display: block;
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 154px;
+  height: 154px;
   background-color: #b5b5b5;
   overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 time.icon *
 {
   display: block;
-  width: 100%;
+  width: inherit;
+  
   font-size: 1em;
   font-weight: bold;
   font-style: normal;
@@ -134,4 +125,17 @@ background: none;
 
 .uib-daypicker thead{
     font-size: 12px;
+}
+
+.custom-size thead{
+}
+.main{
+	display: inline-flex;
+	min-width: 462px;
+}
+.table-week td{
+	width:14.28%;
+	box-shadow: 1px 0px 0px 0px;
+}
+.table-week{
 }

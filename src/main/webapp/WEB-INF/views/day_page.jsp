@@ -132,7 +132,7 @@
         </div>
   </div>
 
-  <!--<div class = "main">-->
+  <div class = "main">
     <div class="sidebar">
         <button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
@@ -158,7 +158,7 @@
         </div>
         <div class="titlefeed">4 People are out today</div>
         <ng-include src='template'></ng-include>
-   <!-- </div> -->
+   </div>
 
  </div>
 
