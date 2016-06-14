@@ -5,7 +5,7 @@
         <td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
     </tr>
     <tr>
-    <td id="week" ng-repeat ="item in calendar[0] track by $index " style = "vertical-align:top;">
+    <td id="week" ng-repeat ="item in calendar[weekInMonth(selectedDate)] track by $index " style = "vertical-align:top;">
         <table class = "table">
             <thead>
             {{item.val}}

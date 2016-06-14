@@ -138,13 +138,13 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
         </button>
         <div class="datecontain">
-          <time datetime="2016-09-20" class="icon">
-              <em>Saturday 2016</em>
-              <strong>March</strong>
-              <span>20</span>
+          <time datetime="{{todayDate}}" class="icon">
+              <em>{{todayDate | date:'EEEE'}} {{todayDate | date:"yyyy"}}</em>
+              <strong>{{todayDate|date:"MMMM"}}</strong>
+              <span>{{todayDate | date:"d"}}</span>
           </time>
           <div class ="datePicker">
-              <uib-datepicker ng-model="dt" class="custom-size" datepicker-options="options"></uib-datepicker>
+              <uib-datepicker ng-model="selectedDate" class="custom-size" datepicker-options="options"></uib-datepicker>
           </div>
         </div>
         <h3 ><a id="logout" href="logout">Logout</a></h3>

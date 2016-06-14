@@ -1,6 +1,6 @@
 <table class = "table table-day">
     <tbody>
-    <tr ng-repeat="x in absences[dates[0].key] track by x.absid">
+    <tr ng-repeat="x in absences[selectedDate.toDateString()] track by x.absid">
         <td><a href="#">{{x.firstname}}, {{x.lastname}}</a></td>
         <td>{{x.date}}</td>
         <td><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
