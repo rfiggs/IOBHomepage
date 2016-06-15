@@ -134,9 +134,12 @@
   </div>
 
   <div class="topmenu">
-                <a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
-                <a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
-                <a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
+            <ul class ="nav nav-pills">
+                    <li href="#" data-toggle="pill" class="btn btn-topnav active" ng-click="day()">Day</li>
+                    <li href="#" data-toggle="pill" class="btn btn-topnav" ng-click="week()">Week</li>
+                    <li href="#" data-toggle="pill" class="btn btn-topnav" ng-click="month()">Month</li>
+            </ul>
+
   </div>
 
   <div class = "main">
