@@ -2,14 +2,15 @@
 <table class ="table table-week">
     <tbody>
     <tr>
+        <td ng-repeat="item in calendar[weekInMonth(selectedDate)] track by $index">{{ item.key | date:"EEE, MMM d" }}</td>
+    </tr>
+    <tr>
     <td id="week" ng-repeat ="item in calendar[weekInMonth(selectedDate)] track by $index " style = "vertical-align:top;">
-        <table class = "table">
-            <thead>
-            {{ item.key | date:"EEE, MMM d" }}
-            </thead>
+        <table class = "table table-dayOfWeek">
             <tbody>
             <tr ng-repeat="x in absences[item.key.toDateString()] track by x.absid" class="entryWeek">
-                <td><a href="#">{{x.lastname}}, {{x.firstname}}</a></td>
+                <td><a href="#">{{x.lastname}},
+                    {{x.firstname}}</a></td>
             </tr>
             </tbody>
         </table>

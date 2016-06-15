@@ -48,7 +48,7 @@ color:#4ba9cf
 .sidebar {float:left;width: auto;margin: 50px;margin-top: 0px;}
 .content{float: left;max-width: 700px;min-width: 500px;}
 .datePicker{}
-.table-day{max-width: 400px;}
+.table-day{max-width: 400px;display: block;table-layout: fixed;height: 576px;overflow: scroll;}
 
 time.icon
 {
@@ -124,9 +124,11 @@ time.icon span
 	display: inline-flex;
 	width: 100%;
 }
-.table-week td{
+.table-week>tbody>tr>#week{
 	width: auto;
-	box-shadow: 1px 0px 0px 0px;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 0px;
 }
 .table-week{
 }
@@ -152,26 +154,37 @@ time.icon span
 	margin-top: 10px;
 }
 .entryWeek{
-	border: 1px solid black;
+	border: none;
+	border-bottom: 1px solid #ddd;
 	font-size: small;
 }
-.entryWeek td{
-	border: 1px solid black;
-	border-top: 1px solid black;
+.tbody>.entryWeek>td{
+	border: none;
 }
 .monthEntry{
-	font-size:xx-small;
-	
+	font-size: x-small;
 }
 .table-dayInMonth{
     height: 53px;
-    width: 90px;
+    width: 95px;
     display:block;
     table-layout:fixed;
     overflow:scroll;
     margin-bottom: 0px;
 }
-.table-dayInMonth>tbody>tr>td{padding: 0px;line-height: 1;border-top: none;border-bottom: 1px solid #ddd;}
+.table-dayInMonth>tbody>tr>td{padding: 0px;line-height: 1;border-top: none;}
 
-.calendarCell{
+.table-month>tbody>tr>td.calendarCell{padding-bottom: 0px;}
+
+.table-dayOfWeek {
+    margin-bottom: 0px;
+    display: block;
+    table-layout: fixed;
+    overflow: scroll;
+    width: 95px;
+    height: 535px;
 }
+
+.table-dayOfWeek>tbody>tr>td {
+    border: none;
+    font-size: small
