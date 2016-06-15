@@ -4,7 +4,7 @@ var app = angular.module('EmployeeIOB',['ui.bootstrap']);
 
 app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($scope,$http,$location,$filter) {
     $scope.template ='resources/templates/day.html';
-    $scope.todayDate = new Date();
+    $scope.todayDate = new Date(new Date().toDateString());
     $scope.selectedDate = $scope.todayDate;
     $scope.calendar=[[]];
     $scope.dates =[];
@@ -42,8 +42,16 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
         $scope.startTime= null;
         $scope.endTime = null;
         $scope.notes = null;
+        $scope.getAbsences();
         $scope.$apply();
     });
+
+    $('.modal').on('shown.bs.modal', function () {
+        console.log("modal open")
+      $scope.startTime = $scope.selectedDate;
+      $scope.endTime = $scope.selectedDate;
+      $scope.$apply();
+    })
 
    /* $scope.$watch( function(scope){
 
@@ -94,6 +102,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
                                }
                 }).success(function(data,status,headers,config){
                     console.log("removed")
+                    $scope.getAbsences()
                 }).error(function(data,status,headers,config){
                     console.log(status);
                 });
@@ -149,6 +158,12 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
         return result;
     }
 
+    $scope.dayOfWeek = function(day){
+        formatted = $filter('date')(day,"EEE MMM dd");
+        return $filter('date')(formatter,"EEE MMM dd");
+
+    }
+
     $scope.buildMonth = function(day){
             start = new Date(day.getTime());
             start.setDate(1);
@@ -161,7 +176,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
             week = 0;
             for(i = new Date(start.getTime()); i.getTime()<=end.getTime(); i.setDate(i.getDate()+1)){
 
-                tempMonth[week][i.getDay()] = {'key':i.toDateString(),'val':i.getDate()};
+                tempMonth[week][i.getDay()] = {'key':new Date(i.getTime()),'val':i.getDate()};
                 if(i.getDay()==6){
                 week += 1;
                 tempMonth[week]=[]

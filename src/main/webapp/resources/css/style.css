@@ -45,19 +45,17 @@ color:#4ba9cf
 	right: 47%;
 	background-color:transparent;
 }
-.sidebar {float:left;width: auto;margin: 50px;}
-.content{float: left;margin-top:50px;max-width: 700px;}
-.datePicker{box-shadow: 1px 1px 0px 0px #888;}
-.table-day{
-max-width : 500px;
-}
+.sidebar {float:left;width: auto;margin: 50px;margin-top: 0px;}
+.content{float: left;max-width: 700px;min-width: 500px;}
+.datePicker{}
+.table-day{max-width: 400px;}
 
 time.icon
 {
   font-size: 1em; /* change icon size */
   display: block;
   position: relative;
-  width: 154px;
+  width: 144px;
   height: 154px;
   background-color: #b5b5b5;
   overflow: hidden;
@@ -108,20 +106,13 @@ time.icon span
 	/*float: right;*/
 	background-color: #FFF;
 	border-radius: 0px;
-	width: auto;
+	width: 144px;
 	height: 40px;
 	box-shadow: 1px 1px 0px 0px #888;
 }
-.uib-day button{
+.uib-day button{color: black;}
 
-}
-
-.custom-size button{
-background: none;
-    padding: 2px 4px;
-    font-size: 10px;
-    min-width: auto;
-}
+.custom-size button{background: none;padding: 2px 4px;font-size: 10px;min-width: auto;box-shadow: none;border: none;}
 
 .uib-daypicker thead{
     font-size: 12px;
@@ -131,11 +122,56 @@ background: none;
 }
 .main{
 	display: inline-flex;
-	min-width: 462px;
+	width: 100%;
 }
 .table-week td{
-	width:14.28%;
+	width: auto;
 	box-shadow: 1px 0px 0px 0px;
 }
 .table-week{
+}
+.uib-day{
+	border: 0px;
+}
+
+.uib-day button.active, .uib-day button.active:focus, .uib-day button.active:hover{
+	color: black;
+}
+.uib-datepicker:focus{
+	outline: none;
+}
+.uib-daypicker:focus{
+	outline: none;
+}
+.topmenu {
+	width: 185px;
+	margin-left: 60%;
+	margin-right: 10%;
+	height: 40px;
+	float: right;
+	margin-top: 10px;
+}
+.entryWeek{
+	border: 1px solid black;
+	font-size: small;
+}
+.entryWeek td{
+	border: 1px solid black;
+	border-top: 1px solid black;
+}
+.monthEntry{
+	font-size:xx-small;
+	
+}
+.table-dayInMonth{
+    height: 53px;
+    width: 90px;
+    display:block;
+    table-layout:fixed;
+    overflow:scroll;
+    margin-bottom: 0px;
+}
+.table-dayInMonth>tbody>tr>td{padding: 0px;line-height: 1;border-top: none;border-bottom: 1px solid #ddd;}
+
+.calendarCell{
 }

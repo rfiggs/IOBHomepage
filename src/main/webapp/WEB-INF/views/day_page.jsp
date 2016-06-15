@@ -99,11 +99,12 @@
                                 <label for="startTime">Date From</label>
                                 <br/>
                                 <input class ="form-control" name="startTime" type="date" id="startTime" ng-model ="startTime" required>
+
                              </div>
                              <div class="form-group">
                                  <label for="endTime">Date Through</label>
                                  <br/>
-                                 <input class ="form-control" name="endTime" type="date" id="endTime" ng-model ="endTime" required>
+                                 <input class ="form-control" name="endTime" type="date" id="endTime" ng-model ="endTime"  required>
                               </div>
                          </div>
                          <!-- Notes -->
@@ -132,6 +133,12 @@
         </div>
   </div>
 
+  <div class="topmenu">
+                <a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
+                <a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
+                <a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
+  </div>
+
   <div class = "main">
     <div class="sidebar">
         <button type="button" id="addButton" data-toggle="modal" data-target="#myModal" class="btn btn-addleft">
@@ -150,13 +157,9 @@
         <h3 ><a id="logout" href="logout">Logout</a></h3>
     </div>
 
+
+
     <div class ="content">
-        <div class="topmenu">
-            <a href="#" class="btn btn-topnav active" ng-click="day()">Day</a>
-            <a href="#" class="btn btn-topnav" ng-click="week()">Week</a>
-            <a href="#" class="btn btn-topnav" ng-click="month()">Month</a>
-        </div>
-        <div class="titlefeed">4 People are out today</div>
         <ng-include src='template'></ng-include>
    </div>
 

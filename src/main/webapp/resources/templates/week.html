@@ -1,21 +1,15 @@
-
+<div class="titlefeed">4 People are out today</div>
 <table class ="table table-week">
     <tbody>
-    <tr>
-        <td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
-    </tr>
     <tr>
     <td id="week" ng-repeat ="item in calendar[weekInMonth(selectedDate)] track by $index " style = "vertical-align:top;">
         <table class = "table">
             <thead>
-            {{item.val}}
+            {{ item.key | date:"EEE, MMM d" }}
             </thead>
             <tbody>
-            <tr ng-repeat="x in absences[item.key] track by x.absid" class="abWeek">
-                <td><a href="#">{{x.firstname}}, {{x.lastname}}</a></td>
-                <td><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
-                </a></td>
+            <tr ng-repeat="x in absences[item.key.toDateString()] track by x.absid" class="entryWeek">
+                <td><a href="#">{{x.lastname}}, {{x.firstname}}</a></td>
             </tr>
             </tbody>
         </table>
