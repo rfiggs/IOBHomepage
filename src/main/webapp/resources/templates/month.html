@@ -15,7 +15,7 @@
                     </thead>
                    <tbody>
                     <tr ng-repeat="x in absences[item.key.toDateString()] track by x.absid">
-                        <td><a class = "monthEntry" href="#">{{x.lastname}}, {{x.firstname}}</a></td>
+                        <td><a class = "monthEntry" href="#" uib-popover-template="'resources/templates/trashcan.html'" popover-trigger="mouseenter" popover-placement="right" popover-popup-close-delay="1000"popover-popup-delay="500">{{x.lastname}}, {{x.firstname}}</a></td>
                     </tr>
                     </tbody>
                 </table>
