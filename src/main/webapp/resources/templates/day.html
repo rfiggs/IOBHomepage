@@ -5,7 +5,7 @@
     <tr ng-repeat="x in absences[selectedDate.toDateString()] track by x.absid" class = "dayEntry">
         <td><a href="#">{{x.lastname}}, {{x.firstname}}</a></td>
         <td>{{x.date}}</td>
-        <td><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
+        <td ng-show="manager"><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
             <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
         </a></td>
     </tr>

@@ -134,10 +134,10 @@
   </div>
 
   <div class="topmenu">
-            <ul class ="nav nav-pills">
-                    <li href="#" data-toggle="pill" class="btn btn-topnav active" ng-click="day()">Day</li>
-                    <li href="#" data-toggle="pill" class="btn btn-topnav" ng-click="week()">Week</li>
-                    <li href="#" data-toggle="pill" class="btn btn-topnav" ng-click="month()">Month</li>
+            <ul class ="nav nav-pills" id="navPills">
+                    <li href="#dayPill" data-toggle="pill" class="btn btn-topnav active" ng-click="day()">Day</li>
+                    <li href="#weekPill" data-toggle="pill" class="btn btn-topnav" ng-click="week()">Week</li>
+                    <li href="#monthPill" data-toggle="pill" class="btn btn-topnav" ng-click="month()">Month</li>
             </ul>
 
   </div>
@@ -148,7 +148,7 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Absence</a>
         </button>
         <div class="datecontain">
-          <time datetime="{{todayDate}}" class="icon">
+          <time datetime="{{todayDate}}" class="icon" id="timeSquare" ng-click="goToToday()">
               <em>{{todayDate | date:'EEEE'}} {{todayDate | date:"yyyy"}}</em>
               <strong>{{todayDate|date:"MMMM"}}</strong>
               <span>{{todayDate | date:"d"}}</span>

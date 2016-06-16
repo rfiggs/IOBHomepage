@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.hawaii.its.EmployeeIOB.access.Absence;
+import edu.hawaii.its.EmployeeIOB.access.Role;
+import edu.hawaii.its.EmployeeIOB.access.User;
 import edu.hawaii.its.EmployeeIOB.service.MysqlService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -105,6 +107,13 @@ public class EmployeeIOBController {
         Map<String,List<Absence>> map = service.getAbsences(start,end);
         service.close();
         return  map;
+    }
+    @RequestMapping(value = {"/isManager"}, method = RequestMethod.POST)
+    public @ResponseBody
+    Boolean isManager(){
+        User user = (User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        return  user.hasRole(Role.MANAGER);
     }
 
 }

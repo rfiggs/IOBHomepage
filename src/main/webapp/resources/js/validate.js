@@ -1,8 +1,28 @@
+
 var app = angular.module('EmployeeIOB',['ui.bootstrap']);
 
 
-
 app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($scope,$http,$location,$filter) {
+
+
+    $scope.isManager = function(){
+         var token = $("meta[name='_csrf']").attr("content")
+                                             $http({
+                                                 method: 'POST',
+                                                 url: "isManager",
+                                                 headers: { 'X-CSRF-Token' : token,
+                                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                                  }
+                                                 }).success(function(data,status,headers,config){
+                                                    $scope.manager = data;
+                                                 }).error(function(data,status,headers,config){
+                                                     console.log(status);
+                                                 })
+                                               };
+
+
+
+    $scope.isManager();
     $scope.template ='resources/templates/day.html';
     $scope.todayDate = new Date(new Date().toDateString());
     $scope.selectedDate = $scope.todayDate;
@@ -111,9 +131,10 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
 
         if($scope.template == 'resources/templates/month.html'){
             console.log("month")
-            start = new Date("01"+$scope.monthLabel().innerHTML);
+            start = new Date("01 "+$scope.monthLabel().innerHTML);
+            console.log(start)
             start.setDate(1);
-            end = new Date("01"+$scope.monthLabel().innerHTML);
+            end = new Date("01 "+$scope.monthLabel().innerHTML);
             end.setMonth(end.getMonth()+1)
             end.setDate(0)
         }
@@ -185,6 +206,13 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
             console.log(tempMonth);
             $scope.calendar = tempMonth;
          }
+     $scope.goToToday = function(){
+        $scope.selectedDate = $scope.todayDate;
+        $scope.day();
+        $('#navPills li[href="#dayPill"]').tab('show');
+     }
+
+
 
 }]);
 

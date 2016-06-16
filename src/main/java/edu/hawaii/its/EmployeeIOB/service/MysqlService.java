@@ -208,6 +208,7 @@ public class MysqlService {
                 ps.setDate(3, new java.sql.Date(endDate.getTime()));
                 rs = ps.executeQuery();
                 if (rs.next()) {
+                    System.out.println(rs.getString("absdate"));
                     result = "An absence already exists in this range";
                 }
             } catch (SQLException e) {
@@ -221,6 +222,7 @@ public class MysqlService {
 
     public void removeAbsence(String absid) {
         try {
+            String empid = getEmpidFromAbsid(absid);
             String sql = "delete from absentdate where absid = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, absid);
@@ -231,7 +233,6 @@ public class MysqlService {
             ps.setString(1, absid);
             ps.executeUpdate();
 
-            String empid = getEmpidFromAbsid(absid);
             logAction(empid,"2","");
 
         } catch (SQLException e) {

@@ -1,4 +1,3 @@
-<div class="titlefeed">4 People are out today</div>
 <table class ="table table-week">
     <tbody>
     <tr>
@@ -8,8 +7,8 @@
     <td id="week" ng-repeat ="item in calendar[weekInMonth(selectedDate)] track by $index " style = "vertical-align:top;">
         <table class = "table table-dayOfWeek">
             <tbody>
-            <tr ng-repeat="x in absences[item.key.toDateString()] track by x.absid" class="entryWeek" >
-                <td><a href="#" uib-popover-template="'resources/templates/trashcan.html'" popover-trigger="mouseenter" popover-placement="right" popover-popup-close-delay="1000"popover-popup-delay="500">{{x.lastname}},<br/>{{x.firstname}}</a></td>
+            <tr ng-repeat="x in absences[item.key.toDateString()] track by x.absid" class="entryWeek" uib-popover-template="'resources/templates/trashcan.html'" popover-trigger="mouseenter" popover-placement="right" popover-popup-close-delay="750"popover-popup-delay="750" popover-enable="manager">
+                <td><a href="#" >{{x.lastname}},<br/>{{x.firstname}}</a></td>
             </tr>
             </tbody>
         </table>

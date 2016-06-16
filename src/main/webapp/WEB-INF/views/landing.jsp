@@ -30,6 +30,10 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
 
+    <!-- AngularJS -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -71,7 +75,7 @@
   <div class="sidebar"><a class="btn btn-primary outline" id="login" href="day_page" >Login</a></div>
   <div class="content">
   <div class="newstitle">News and Announcements:</div>
-  <div class="newsfeed"> March 21st 2016<br>News and Announcements go here</div>
+  <div class="newsfeed">March 21st 2016<br>News and Announcements go here</div>
   </div>
   
   </div>

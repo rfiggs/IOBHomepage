@@ -25,6 +25,12 @@ public class UserBuilder {
             roleHolder.add(Role.EMPLOYEE);
             roleHolder.add(Role.MANAGER);
         }
+        /*if(username.equalsIgnoreCase("rfiggs")){
+            roleHolder = new RoleHolder();
+            roleHolder.add(Role.EMPLOYEE);
+            roleHolder.add(Role.MANAGER);
+
+        }*/
         User user = new User(username,Long.valueOf(uhnumber),roleHolder.getAuthorites());
         user.setAttributes(attributes);
 

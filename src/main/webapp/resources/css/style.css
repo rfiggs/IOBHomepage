@@ -155,7 +155,7 @@ time.icon span
 }
 .entryWeek{
 	border: none;
-	border-bottom: 1px solid #ddd;
+	border: 1px solid black;
 	font-size: small;
 }
 .tbody>.entryWeek>td{
@@ -187,4 +187,10 @@ time.icon span
 
 .table-dayOfWeek>tbody>tr>td {
     border: none;
-    font-size: small
+    min-width: 94px;
+    font-size: small;
+}
+
+.entryWeek>td>a {
+    padding: initial;
+}
