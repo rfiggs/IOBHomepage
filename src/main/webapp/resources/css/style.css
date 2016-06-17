@@ -145,7 +145,7 @@ time.icon span
 	outline: none;
 }
 .topmenu {
-	width: 185px;
+	width: 229px;
 	margin-left: 60%;
 	margin-right: 10%;
 	height: 40px;
@@ -233,4 +233,18 @@ table.table-day>tbody>tr:hover>td>a {
 
 table.table-day>tbody>tr>td {
     vertical-align: middle;
+}
+
+.topmenu>ul>li {
+    width: 75px;
+    color: #4ba9cf;
+}
+
+.topmenu>ul>li:active,.topmenu>ul>li.active {
+    color: white;
+    background-color: #4ba9cf;
+}
+
+li.btn-topnav:hover {
+    color: #4ba9cf;
 }
