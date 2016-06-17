@@ -127,9 +127,10 @@
   	<h1>ITS Out Board</h1>
   		<div class="input-group-lg search-bar">
             <input type="text" placeholder="Search Employee" class="form-control" id="search">
-            <button class="btn btn-search">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </button>
+                <button class="btn btn-search">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+
         </div>
   </div>
 

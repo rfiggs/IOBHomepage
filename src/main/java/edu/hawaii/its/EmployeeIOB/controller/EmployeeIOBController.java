@@ -15,12 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
 public class EmployeeIOBController {
+
 	@RequestMapping(value = {"/", "/landing"}, method = RequestMethod.GET)
     public String landing(Model model) {
         return "landing";
@@ -44,8 +43,8 @@ public class EmployeeIOBController {
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST, produces ="application/text")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody String add(@RequestParam String username,
-                            @RequestParam String startTime,
-                            @RequestParam String endTime,
+                            @RequestParam long startTime,
+                            @RequestParam long endTime,
                             @RequestParam String notes) {
         MysqlService s = new MysqlService();
         String result = s.validateAdd(username,startTime,endTime);
@@ -75,45 +74,22 @@ public class EmployeeIOBController {
         return  new ModelAndView("landing","denied",message);
     }
 
-    @RequestMapping(value = {"/day"}, method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    Map<String,List<Absence>> day(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String today = format.format(Calendar.getInstance().getTime());
-
-        return getAbsences(today,today);
-    }
-
-    @RequestMapping(value = {"/week"}, method = RequestMethod.GET)
-    public @ResponseBody
-    List<List<Absence>> week(){
-        List<List<Absence>> week = new ArrayList<List<Absence>>();
-
-        return week;
-    }
-
-    @RequestMapping(value = {"/month"}, method = RequestMethod.GET)
-    public @ResponseBody
-    List<List<Absence>> month(){
-        List<List<Absence>> month = new ArrayList<List<Absence>>();
-
-        return  month;
-    }
     @RequestMapping(value = {"/lookup"}, method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody Map<String,List<Absence>> getAbsences(
-            @RequestParam String start,
-            @RequestParam String end){
+            @RequestParam long start,
+            @RequestParam long end){
         MysqlService service = new MysqlService();
         Map<String,List<Absence>> map = service.getAbsences(start,end);
         service.close();
         return  map;
     }
+
     @RequestMapping(value = {"/isManager"}, method = RequestMethod.POST)
     public @ResponseBody
-    Boolean isManager(){
+    boolean isManager(){
         User user = (User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (user.hasRole(Role.MANAGER));
 
-        return  user.hasRole(Role.MANAGER);
     }
 
 }

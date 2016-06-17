@@ -18,6 +18,7 @@ public class UserBuilder {
         roleHolder.add(Role.UH);
         MysqlService s = new MysqlService();
         String role = s.getRoleFromUhnumber(uhnumber);
+        s.close();
         if(role.equalsIgnoreCase("Student")){
             roleHolder.add(Role.EMPLOYEE);
         }
@@ -28,15 +29,11 @@ public class UserBuilder {
         /*if(username.equalsIgnoreCase("rfiggs")){
             roleHolder = new RoleHolder();
             roleHolder.add(Role.EMPLOYEE);
-            roleHolder.add(Role.MANAGER);
 
         }*/
         User user = new User(username,Long.valueOf(uhnumber),roleHolder.getAuthorites());
         user.setAttributes(attributes);
 
         return user;
-    }
-    public void printsomething(){
-        System.out.println("something");
     }
 }

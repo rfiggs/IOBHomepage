@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/landing" access="permitAll" />
 		<security:intercept-url pattern="/logout" access = "permitAll"/>
 		<security:intercept-url pattern="/denied" access = "permitAll"/>
+		<security:intercept-url pattern="/remove" access = "hasRole('ROLE_MANAGER')"/>
 		<security:intercept-url pattern="/*" access="hasRole('ROLE_EMPLOYEE')"/>
 		<security:access-denied-handler error-page="/denied"/>
 		<security:custom-filter position ="CAS_FILTER" ref ="casFilter"/>

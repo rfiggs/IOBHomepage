@@ -1,10 +1,11 @@
-<div class="titlefeed">{{absences[selectedDate.toDateString()].length}} People are out today</div>
+<div class="titlefeed" ng-show="dayViewMessage()">{{absences[selectedDate.toDateString()].length}} People are out today</div>
+<div class="titlefeed" ng-show="!dayViewMessage()">No Entries Found</div>
 <table class = "table table-day">
     <tbody>
 
     <tr ng-repeat="x in absences[selectedDate.toDateString()] track by x.absid" class = "dayEntry">
         <td><a href="#">{{x.lastname}}, {{x.firstname}}</a></td>
-        <td>{{x.date}}</td>
+        <td><a href ="#" >{{x.date}}</a></td>
         <td ng-show="manager"><a href="#" class="btn btn-trash" ng-click='remove(x.absid)'>
             <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
         </a></td>

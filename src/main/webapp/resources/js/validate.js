@@ -1,26 +1,20 @@
-
 var app = angular.module('EmployeeIOB',['ui.bootstrap']);
 
-
 app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($scope,$http,$location,$filter) {
-
-
     $scope.isManager = function(){
          var token = $("meta[name='_csrf']").attr("content")
-                                             $http({
-                                                 method: 'POST',
-                                                 url: "isManager",
-                                                 headers: { 'X-CSRF-Token' : token,
-                                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                                  }
-                                                 }).success(function(data,status,headers,config){
-                                                    $scope.manager = data;
-                                                 }).error(function(data,status,headers,config){
-                                                     console.log(status);
-                                                 })
-                                               };
+         $http({
+            method: 'POST',
+            url: "isManager",
+            headers: { 'X-CSRF-Token' : token,
+                        'Content-Type': 'application/x-www-form-urlencoded'}
+         }).success(function(data,status,headers,config){
+            $scope.manager = data;
 
-
+         }).error(function(data,status,headers,config){
+             console.log(status);
+         })
+    };
 
     $scope.isManager();
     $scope.template ='resources/templates/day.html';
@@ -29,7 +23,9 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
     $scope.calendar=[[]];
     $scope.dates =[];
     $scope.absences = [];
-    $scope.monthLabel = function() { return document.getElementsByClassName("uib-title")[0].getElementsByTagName("strong")[0]};
+    $scope.monthLabel = function() {
+        return document.getElementsByClassName("uib-title")[0].getElementsByTagName("strong")[0]
+    };
     $scope.options = { 'showWeeks': false, 'datePickerMode':'day' };
     $scope.submit = function() {
         var token = $("meta[name='_csrf']").attr("content")
@@ -37,8 +33,8 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
             method: 'POST',
             url: "add",
             data: $.param({'username' : $scope.username,
-             'startTime':$scope.startTime,
-              'endTime': $scope.endTime,
+             'startTime':$scope.startTime.getTime(),
+              'endTime': $scope.endTime.getTime(),
                'notes' : $scope.notes }),
 
             headers: { 'X-CSRF-Token' : token,
@@ -84,7 +80,8 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
            },true);*/
      $scope.$watch( function(scope){
         if($scope.template =='resources/templates/month.html' ){
-            thing = $scope.monthLabel().innerHTML;
+            thing = $filter('date')(new Date("01 "+$scope.monthLabel().innerHTML),"MMMM");
+
         }
         else {
             thing = $filter('date')($scope.selectedDate,"MMMM");
@@ -152,7 +149,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
         $http({
             method: 'POST',
             url: "lookup",
-            data: $.param({'start' : start , 'end':end}),
+            data: $.param({'start' : start.getTime() , 'end':end.getTime()}),
             headers: { 'X-CSRF-Token' : token,
                        'Content-Type': 'application/x-www-form-urlencoded'
              }
@@ -186,7 +183,7 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
     }
 
     $scope.buildMonth = function(day){
-            start = new Date(day.getTime());
+            start = new Date(day);
             start.setDate(1);
             start.setDate(start.getDate()-start.getDay())
             end = new Date(day.getTime())
@@ -212,7 +209,9 @@ app.controller('ctrl', ['$scope', '$http', '$location', '$filter', function($sco
         $('#navPills li[href="#dayPill"]').tab('show');
      }
 
-
+     $scope.dayViewMessage = function(){
+        return ( $scope.absences[$scope.selectedDate.toDateString()] != null && $scope.absences[$scope.selectedDate.toDateString()].length > 0 )
+     }
 
 }]);
 

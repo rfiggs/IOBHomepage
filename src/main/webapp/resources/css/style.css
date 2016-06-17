@@ -15,15 +15,15 @@
 #search {
 	position:absolute;
 	top: 45px;
-	right: 47%;
+	left: 50px;
 	background-color:#316e87;
 	color: #FFF;
 	border-radius: 20px;
 	border-color:#4ba9cf;
 	width: 300px;
 	-moz-box-shadow:    inset 0 1px 0px #244e60;
-   	-webkit-box-shadow: inset 0 1px 0px #244e60;
-   	box-shadow:         inset 0 1px 0px #244e60;
+	-webkit-box-shadow: inset 0 1px 0px #244e60;
+	box-shadow:         inset 0 1px 0px #244e60;
 }
 #search::-moz-placeholder {
 color:#4ba9cf;
@@ -36,13 +36,12 @@ color:#4ba9cf
 color:#4ba9cf
 }
 .btn-search {
-	padding: 13px;
 	float: left;
 	color: #fff;
 	font-size: 22px;
-	position:absolute;
-	top: 41px;
-	right: 47%;
+	position:relative;
+	top: 45px;
+	left:300px;
 	background-color:transparent;
 }
 .sidebar {float:left;width: auto;margin: 50px;margin-top: 0px;}
@@ -153,10 +152,11 @@ time.icon span
 	float: right;
 	margin-top: 10px;
 }
-.entryWeek{
+tr.entryWeek{
 	border: none;
-	border: 1px solid black;
+	border-bottom: 1px solid #ddd;
 	font-size: small;
+	background-color: white;
 }
 .tbody>.entryWeek>td{
 	border: none;
@@ -164,13 +164,14 @@ time.icon span
 .monthEntry{
 	font-size: x-small;
 }
-.table-dayInMonth{
+.table.table-dayInMonth{
     height: 53px;
     width: 95px;
     display:block;
     table-layout:fixed;
     overflow:scroll;
     margin-bottom: 0px;
+    background-color: transparent;
 }
 .table-dayInMonth>tbody>tr>td{padding: 0px;line-height: 1;border-top: none;}
 
@@ -193,4 +194,43 @@ time.icon span
 
 .entryWeek>td>a {
     padding: initial;
+}
+
+.table-month>tbody>tr>td.calendarCell:hover {
+    background-color: rgb(75, 169, 207);
+}
+
+.table-month>tbody>tr>td.calendarCell>div {
+    background-color: transparent;
+}
+
+.table-dayOfWeek>tbody>tr>td:hover {
+    background-color: #4ba9cf;
+    color: white;
+}
+tr.entryWeek:nth-child(odd){
+}
+
+.table-dayOfWeek>tbody>tr>td:hover + a {
+    color: white;
+}
+
+.table-dayOfWeek>tbody>tr>td:hover>a {
+    color: white;
+}
+
+.table-month>tbody>tr>td.calendarCell:hover>div>table>tbody>tr>td>a {
+    color: white;
+}
+
+table.table-day>tbody>tr:hover {
+    background-color: #4ba9cf;
+}
+
+table.table-day>tbody>tr:hover>td>a {
+    color: white;
+}
+
+table.table-day>tbody>tr>td {
+    vertical-align: middle;
 }
